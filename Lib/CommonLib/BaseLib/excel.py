@@ -208,7 +208,7 @@ class Excel:
             columns_names = [cell.calue for cell in list(sheet.rows)[0]]
             return {k: v + 1 for v, k in enumerate(columns_names)}
         except IndexError:
-            LogMessage(level=LOG_ERROR, module="Excel", msg="Empty Sheet")
+            LogMessage(level=LOG_ERROR, module="Excel", msg="Empty Sheet.....")
             return dict()
 
     @sheet_exist
@@ -221,3 +221,156 @@ class Excel:
         :param write_new_col:
         :return:
         """
+        col_names = self.columns_name_get(sheet_name)
+        if col_names:
+            try:
+                return col_names[column_name]
+            except KeyError:
+                if write_new_col:
+                    index = self.sheet_handler(sheet_name).max_column + 1
+                    LogMessage(level=LOG_DEBUG, module="Excel",
+                               msg="Column name '{}' not found ,add it at (1,{}....)".format(column_name, index))
+                    self.cell_handler(sheet_name, row=1, column=index).value = column_name
+                    return index
+                else:
+                    LogMessage(level=LOG_DEBUG, module="Excel",
+                               msg="Not found '{}' in '{}'".format(column_name, col_names))
+                    return 0
+        # sheet 为空
+        else:
+            if write_new_col:
+                LogMessage(level=LOG_DEBUG, module="Excel",
+                           msg="Empty Sheet...,add  '{}'  at (1,1)....".format(column_name))
+                self.cell_handler(sheet_name, row=1, column=1).value = column_name
+                self.save()
+                self.wb.close()
+                return 1
+            else:
+                LogMessage(level=LOG_DEBUG, module="Excel",
+                           msg="Not found '{}' in '{}'".format(column_name, col_names))
+                return 0
+
+    @sheet_exist
+    def column_hidden(self, sheet_name, column_name) -> None:
+        """
+        隐藏列
+        :param sheet_name: 表明
+        :param column_name: 列名
+        :return: by index 通过索引找到列 ,name 通过名字找到列 ,letter 通过字母找到列
+
+        """
+        sheet = self.sheet_handler(sheet_name)
+        try:
+            column_index = self.column_index_get_by_name(sheet_name)
+            column_letter = get_column_letter(column_index)
+            sheet.column_dimensions[column_letter].hidden = True
+        except ValueError:
+            LogMessage(level=LOG_INFO, module="Excel", msg=f"Not Found column {column_name}")
+            self.save()
+
+    @sheet_exist
+    def column_get_by_col_name(self, sheet_name, column_name) -> list:
+        """
+        指定列名 获取整列信息
+        :param sheet_name: 表明
+        :param column_name: 列明
+        :return: [column_name,column_data....]
+        """
+        sheet = self.sheet_handler(sheet_name)
+        col_index = column_name if isinstance(column_name, int) else self.column_index_get_by_name(sheet_name,
+                                                                                                   column_name)
+        column_ganerator = self.query(sheet_name, row_start=0, row_end=sheet.max_column, column_start=col_index,
+                                      column_end=col_index, by="column")
+        res_list = list(list(column_ganerator)[0])
+        return res_list
+
+    @sheet_exist
+    def records_get(self, sheet_name, row_start=None, row_end=None, column_start=None, column_end=None,
+                    by="row") -> list:
+        """
+        起始行/列固定为第一行 获取指定范围所有记录 返回dict-list的数据结构
+        :param sheet_name:
+        :param row_start:
+        :param row_end:
+        :param column_start:
+        :param column_end:
+        :param by:
+        :return:
+        """
+        row_start = 1 if by == "row" else row_start
+        column_start = 1 if by == "column" else column_start
+        _iter = self.query(sheet_name, row_start=row_start, row_end=row_end, column_start=column_start,
+                           column_end=column_end, by=by)
+        records = [record for record in _iter]
+        "将第一个record为dict 的key"
+        keys = records.pop(0)
+        return [dict(zip(keys, values)) for values in records]
+
+    @sheet_exist
+    def records_write(self, sheet_name, records, stat_row=None) -> None:
+        """
+        写入符合格式数据 [{},{}...]
+        :param sheet_name: 表名字
+        :param records: 期望数据[{},{}...]
+        :param stat_row: 开始行
+        :return:
+        """
+        sheet = self.sheet_handler(sheet_name)
+        """如果传入指定行 则从指定行传入数据 否则则在最后一行插入数据"""
+        row = stat_row if stat_row else sheet.max_row + 1
+        # 判断data是否为list
+        try:
+            for record in records:
+                # 判断元素是否为dict
+                for key in record.keys():
+                    self.column_index_get_by_name(sheet_name, key, write_new_col=True)
+                for col_name in self.columns_name_get(sheet_name):
+                    col_index = self.column_index_get_by_name(sheet_name, col_name)
+                    value = record.get(col_name)
+                    LogMessage(level=LOG_DEBUG, module="Excel",
+                               msg=f"In '{sheet_name}',Cell({row}, {col_name}, set{value})")
+                    self.cell_handler(sheet_name, row, col_index).value = value
+                    row += 1
+                self.save()
+                self.wb.close()
+        except Exception as e:
+            LogMessage(level=LOG_ERROR, module="Excel", msg=f"记录写入异常 写入未保存{e}")
+
+    @sheet_exist
+    def cell_merge(self, sheet_name, row, column, cell_name, cell_name2) -> None:
+        sheet = self.sheet_handler(sheet_name)
+        sheet.merge_cells(f"{cell_name}{row}:{cell_name2}{column}")
+
+    @sheet_exist
+    def write_col_data(self, sheet_name, records, row, col) -> None:
+        """
+        写入复合数据
+        :param sheet_name:
+        :param records:
+        :param row:
+        :param col:
+        :return:
+        """
+        sheet = self.sheet_handler(sheet_name)
+        row = row if row else sheet.max_row + 1
+        header = ""
+        for record in records:
+            header = list(record.keys())
+        for index in range(len(header)):
+            self.cell_handler(sheet_name, row=row, column=col + index).value = header[index]
+        row = 2
+        for record in records:
+            for index, value in enumerate(record.values()):
+                self.cell_handler(sheet_name, row=row, column=col + index).value = value
+            row += 1
+        self.save()
+        self.wb.close()
+
+    @sheet_exist
+    def merge_cell(self, env_name, start, end, cell_name, cell_name2, interval, index) -> None:
+        for num in range(index):
+            self.cell_merge(env_name, str(start), str(end), cell_name, cell_name2)
+            start += interval
+            end += interval
+        self.save()
+        self.wb.close()
