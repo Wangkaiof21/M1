@@ -8,7 +8,7 @@ import re
 import socket
 import time
 import paramiko
-from Lib.ComminLib.log_message import LogMessage, LOG_ERROR, LOG_WARN, LOG_DEBUG
+from ..log_message import LogMessage, LOG_ERROR, LOG_WARN, LOG_DEBUG
 
 
 class Ssh:

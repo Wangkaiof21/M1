@@ -8,7 +8,8 @@
 import re
 import telnetlib
 import time
-from Lib.ComminLib.log_message import LogMessage, LOG_DEBUG, LOG_ERROR
+
+from ..log_message import LogMessage, LOG_DEBUG, LOG_ERROR
 from .ssh import Ssh
 
 
@@ -17,10 +18,10 @@ class TelnetWithoutANSI(telnetlib.Telnet):
     def process_rwaq(self):
         super().process_rawq()
         # ANSI转义相关
-        ansi_escape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9a\x9C-\x9f]|(?:\x1B\[|\x9B])[0-?]*[ -/]*[@-~])',
+        ansi_escape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9A\x9C-\x9F]|(?:\x1B\[|\x9B)[0-?]*[ -/]*[@-~])',
                                  re.VERBOSE)
         # 把原有的成员变量cookedg,sbdataq中的ansi转义去掉
-        self.cookedg = ansi_escape.sub(b'', self.cookedg)
+        self.cookedq = ansi_escape.sub(b'', self.cookedq)
         self.sbdataq = ansi_escape.sub(b'', self.sbdataq)
 
     def read_until(self, match, timeout=None):
@@ -38,7 +39,7 @@ class Telnet:
                  proxy_ip=None, proxy_port=22, proxy_username=None, proxy_password=None,
                  input_interval=0.1, enter_char="\n", view_mode="os", scale_factor=1):
         # 基本信息
-        self.hostname = host_ip
+        self.host_ip = host_ip
         self.port = port
         self.username = username
         self.password = password
@@ -56,11 +57,28 @@ class Telnet:
         # 业务相关变量
         self.enter_char = enter_char
         self.view_mode = view_mode
-        self.login_head = ""
+        self.login_head = ""  # 命令提示符 登陆当前主机@用户名:当前目录所在地:用户权限
         self.scale_factor = scale_factor
         self.input_interval = input_interval * self.scale_factor  # 在uefi和itos下 命令输入的间隙
-        self.ansi_esccape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9a\x9C-\x9f]|(?:\x1B\[|\x9B])[0-?]*[ -/]*[@-~])',
+        self.ansi_esccape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9A\x9C-\x9F]|(?:\x1B\[|\x9B)[0-?]*[ -/]*[@-~])',
                                        re.VERBOSE)
+
+    def connect(self) -> bool:
+        if self.proxy:
+            return self._connect_with_proxy()
+        else:
+            return self_connect()
+
+    def close(self) -> None:
+        if self.is_connected:
+        try:
+            self.tn.close()
+            self.is_connected=False
+            LogMessage(level=LOG_DEBUG,module="Telnet",msg=f"Telnet:{self.host_ip}:{self.port} closed !")
+        except Exception as e:
+            LogMessage(level=LOG_DEBUG, module="Telnet", msg=f"Telnet:{self.host_ip}:{self.port} closed failed !!! {e}")
+
+
 
     def login_head_refresh(self):
         """

@@ -6,7 +6,7 @@
 # @Software: win10 Tensorflow1.13.1 python3.6.3
 from time import sleep, time
 import serial
-from Lib.ComminLib.log_message import LOG_ERROR, LOG_INFO, LogMessage
+from ..log_message import LOG_ERROR, LOG_INFO, LogMessage
 
 
 class Com:
