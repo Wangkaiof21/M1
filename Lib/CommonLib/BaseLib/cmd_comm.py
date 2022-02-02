@@ -8,8 +8,8 @@
 
 import os
 
-from Lib.ComminLib.BaseLib.terminal import Teminal
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_INFO, LOG_ERROR
+from .terminal import Terminal
+from .log_message import LogMessage, LOG_INFO, LOG_ERROR
 
 
 class FileOperation:
@@ -100,7 +100,7 @@ def rebot(terminal):
     :param terminal: 
     :return: 
     """
-    if not isinstance(terminal, Teminal):
+    if not isinstance(terminal, Terminal):
         return False
     cmd_result = terminal.cmd_send(cmd='sudo rebot')
     return cmd_result
@@ -123,7 +123,7 @@ def pid_kill_cmd(process_, all=False):
 
 if __name__ == '__main__':
     from Lib.FeatureLib.PerfLib.perf_config import PerfTermCfg as Term
-    term = Teminal(host_type=Term.GLB_HOST_TYPE, host_ip=Term.GLB_HOST, port=Term.GLB_PORT,
+    term = Terminal(host_type=Term.GLB_HOST_TYPE, host_ip=Term.GLB_HOST, port=Term.GLB_PORT,
                    username=Term.GLB_USER, password=Term.GLB_PASSWORD, timeout=100,
                    hold=True)
     term.connect()
