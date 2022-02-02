@@ -35,23 +35,24 @@ class Ssh:
         self.shell = None
         # 业务相关
         self.enter_char = enter_char  # 一般是回车
-        self.login_head = ""  # 连接后的头部 登陆的用户@主机名:当前所在目录:权限
+        self.login_head = ''  # 连接后的头部 登陆的用户@主机名:当前所在目录:权限
         self.scale_factor = scale_factor
         self.input_interval = input_interval * self.scale_factor  # 在uefi和itos下 命令输入的间隙
-        self.ansi_esccape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9a\x9C-\x9f]|(?:\x1B\[|\x9B])[0-?]*[ -/]*[@-~])',
+        self.ansi_esccape = re.compile(br'(?:\x1B[@-Z\\-_]|[\x80-\x9A\x9C-\x9F]|(?:\x1B\[|\x9B)[0-?]*[ -/]*[@-~])',
                                        re.VERBOSE)  # VT100 ANSI转义字符串正则
         self.default_buffer_size = 1024
         self.hold = hold
         self.called = called
 
     def connect(self) -> bool:
+        """ssh连接"""
         try:
             if self.proxy:
                 proxy_sock = self._get_proxy_sock()
                 self.ssh.connect(hostname=self.hostname, username=self.username, password=self.password,
                                  sock=proxy_sock, timeout=self.timeout)
             else:
-                self.ssh.connect(hostname=self.hostname, username=self.username, password=self.password,
+                self.ssh.connect(hostname=self.hostname, port=self.port, username=self.username, password=self.password,
                                  timeout=self.timeout)
             if self.hold:
                 self.shell = self.ssh.invoke_shell(width=256)  # 引用一个shell维持会话
@@ -59,6 +60,7 @@ class Ssh:
             self.is_connected = True
             LogMessage(level=LOG_DEBUG, module="Ssh",
                        msg=f"connect to {self.hostname}:{self.port} successfully")
+
         except Exception as e:
             LogMessage(level=LOG_ERROR, module="Ssh",
                        msg=f"Failed to  connect  {self.hostname}:{e}")
@@ -77,7 +79,7 @@ class Ssh:
                 LogMessage(level=LOG_ERROR, module="Ssh",
                            msg=f"SSH: {self.hostname}:{self.port} close failed {e}")
 
-    def cmd_send(self, cmd: str, ret_str="", wait4ret_str=False, timeout=5, wait4res=True, delay_recv=0) -> str:
+    def cmd_send(self, cmd, ret_str='', wait4ret_str=False, timeout=5, wait4res=True, delay_recv=0) -> str:
         """
 
         :param cmd:
@@ -109,55 +111,60 @@ class Ssh:
                     break
         return command_result
 
-    def _exec_command(self, cmd, timeout, delay_recv, ret_str, wait4ret_str) -> str:
-        """执行命令返回 sh+telnet ssh hold/called模式下会调用此方法"""
-        for i in range(0, len(cmd), 20):
-            self.shell.send(cmd[i:i + 20])
-            time.sleep(self.input_interval)
-        self.shell.send(self.enter_char)
-        time.sleep(delay_recv)
-        result = self._receive(timeout=timeout, ret_str=ret_str, wait4ret_str=wait4ret_str)
-        result = result.replace(cmd.strip(), "").replace(self.login_head, "").strip()
-        return result
+    @property
+    def _pattern(self):
+        # login head 用pattern
+        return re.compile(rf'.*?{self.username}[@:]*.*?[\n]*[#$]|Shell>|\w+:\\>|ali2600:[~/].*[#$]')
 
     def _get_proxy_sock(self):
         """建立ssh代理通路"""
         proxy_ssh = paramiko.SSHClient()
         proxy_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         proxy_ssh.connect(hostname=self.proxy_ip, username=self.proxy_username, password=self.proxy_password,
-                          timeout=self.timeout)
+                          timeout=self.timeout, port=self.proxy_port)
+
         LogMessage(level=LOG_DEBUG, module="Ssh",
                    msg=f"connect to proxy: {self.proxy_ip}:{self.proxy_port} successfully")
+
         vm_transport = proxy_ssh.get_transport()
-        remot_address = (self.hostname, self.port)
+        remote_address = (self.hostname, self.port)
         local_address = (self.proxy_ip, self.proxy_port)
-        vm_channel = vm_transport.open_channel("direct_tcpip", remot_address, local_address)
+        vm_channel = vm_transport.open_channel("direct_tcpip", remote_address, local_address)
         return vm_channel
 
-    @property
-    def _pattern(self):
-        return re.compile(rf'.*?{self.username}[@:]*.*?[\n]*[#$]|Shell>|\w+:\\>|ali2600:[~/].*[#$]')
+    def _exec_command(self, cmd, timeout, delay_recv, ret_str, wait4ret_str) -> str:
+        """执行命令返回 sh+telnet ssh hold/called模式下会调用此方法"""
+        for i in range(0, len(cmd), 20):
+            self.shell.send(cmd[i:i + 20])
+            time.sleep(self.input_interval)
+        self.shell.send(self.enter_char)
+        time.sleep(delay_recv)  # 延迟获取返回值
+        result = self._receive(timeout=timeout, ret_str=ret_str, wait4ret_str=wait4ret_str)
+        result = result.replace(cmd.strip(), '').replace(self.login_head, '').strip()
+        return result
 
-    def _receive(self, timeout=None, ret_str="", wait4ret_str=False) -> str:
+    def _receive(self, timeout=None, ret_str='', wait4ret_str=False) -> str:
         """ 接收返回值（包含更新login head的业务）ssh+telnet ssh hold/called模式下会调用此方法"""
         self.shell.timeout = timeout if timeout else self.timeout
         result = b''  # 最终结果
         last_res = b''  # 上一次临时返回值 用于quite = Ture状况
-        buffer_size = 500 * 1024
+        buffer_size = 500 * 1024  # 500k bytes
         while True:
+            # 读取shell的内容 -> result
             time.sleep(0.5)
             """读取shell里的内容"""
             try:
                 tmp_res = self.shell.recv(buffer_size)
                 LogMessage(level=LOG_DEBUG, module="_receive", msg=f"{tmp_res.__sizeof__()},{buffer_size}\n{tmp_res}")
                 if tmp_res.__sizeof__() >= buffer_size:
-                    LogMessage(level=LOG_WARN, module="_receive", msg=f"buffsize no enough")
+                    LogMessage(level=LOG_WARN, module="_receive", msg=f"buff size no enough")
+
                 tmp_res = self.ansi_esccape.sub(b'', tmp_res)
                 match_tmp = b''.join([last_res, tmp_res])
                 last_res = tmp_res
                 result += tmp_res
-            except socket.timeout:
-                LogMessage(level=LOG_WARN, module="_receive", msg=f"shell receive timeout, {self.shell.timeout}")
+            except socket.timeout:  # 处理self.shell.recv()超时
+                LogMessage(level=LOG_ERROR, module="Ssh", msg=f"shell receive timeout, {self.shell.timeout}")
                 break
             """处理读取的result 判断是否正常结束循环"""
             if wait4ret_str and ret_str:  # wait4ret_str = Ture ret_str 有值时  login_head在result也不返回
@@ -165,11 +172,10 @@ class Ssh:
                     break
             else:  # 通过login head判断是否返回
                 login_head_match = self._pattern.search(match_tmp.decode("utf-8", errors="ignore"))
-                LogMessage(level=LOG_DEBUG, module="ssh", msg=f"login head match{login_head_match}")
+                LogMessage(level=LOG_DEBUG, module="_receive", msg=f"login_head_match : {login_head_match}")
                 if login_head_match:
                     if self.login_head != login_head_match.group():  # 判断login head是否要更新
                         self.login_head = login_head_match.group()
-                        LogMessage(level=LOG_DEBUG, module="_receive",
-                                   msg=f"refresh login head to {repr(self.login_head)}")
-                        break
+                        LogMessage(level=LOG_DEBUG, module="Ssh", msg=f"Refresh login head to {repr(self.login_head)}")
+                    break
         return result.decode("utf-8", errors="ignore")

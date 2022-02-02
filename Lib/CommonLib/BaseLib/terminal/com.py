@@ -12,7 +12,6 @@ from ..log_message import LOG_ERROR, LOG_INFO, LogMessage
 class Com:
     def __init__(self, port, baud_rate, timeout=5):
         """
-
         :param port: 端口
         :param baud_rate: 波特率
         :param timeout: 超时时间
@@ -66,19 +65,20 @@ class Com:
             self.ser.write(cmd.encode())
             sleep(1 + delay_recv)  # 等待in_waiting更新
         except Exception as e:
-            LogMessage(level=LOG_ERROR, module="Com", msg=f"send cmd failed:{e}")
+            LogMessage(level=LOG_ERROR, module="Com", msg=f"Send cmd failed:{e}")
             return ret
         if not wait4res:
             return ret
         ret = self._msg_read(timeout=timeout, ret_str=ret_str, wait4ret_str=wait4ret_str)
         ret = ret.replace(cmd.strip(), "").replace(self.login_head, "")
+        return ret
 
     def close(self) -> bool:
         """关闭串口"""
         self.ser.close()
         return not self.is_connected
 
-    def _msg_read(self, timeout=0, ret_str="", wait4ret_str=False):
+    def _msg_read(self, timeout=0, ret_str='', wait4ret_str=False) -> str:
         """
         回读信息包 cmd login_head
         :param timeout:
@@ -89,7 +89,7 @@ class Com:
         ret = ""
         timeout = timeout if timeout else self.timeout
         t = time()
-        while self.ser:
+        while self.ser.in_waiting:
             tmp = self.ser.read(self.ser.in_waiting).decode()
             ret += tmp
             if wait4ret_str and ret_str in ret:
