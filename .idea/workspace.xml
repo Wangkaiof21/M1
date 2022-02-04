@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,37 +17,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/ssh.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3654">
-              <caret line="178" column="119" selection-start-line="178" selection-start-column="119" selection-end-line="178" selection-end-column="119" />
-              <folding>
-                <element signature="e#167#176#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2562">
-              <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
-              <folding>
-                <element signature="e#174#183#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py">
+        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="332" column="27" selection-start-line="332" selection-start-column="27" selection-end-line="332" selection-end-column="27" />
+            <state relative-caret-position="156">
+              <caret line="146" column="24" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="24" />
               <folding>
-                <element signature="e#170#179#0" expanded="true" />
+                <element signature="e#208#217#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,16 +52,17 @@
         <option value="$PROJECT_DIR$/Report.bat" />
         <option value="$PROJECT_DIR$/../../pron/PornhubSpider/app.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py" />
-        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/telnet.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/com.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/ssh.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="516" />
     <option name="y" value="149" />
     <option name="width" value="943" />
@@ -122,6 +101,14 @@
               <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
               <item name="BaseLib" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
+              <item name="BaseLib" type="462c0819:PsiDirectoryNode" />
+              <item name="terminal" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -144,6 +131,34 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="process" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="M1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Lib/CommonLib/BaseLib" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.process" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -161,12 +176,12 @@
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32952183" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -255,36 +270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="108" column="28" selection-start-line="107" selection-start-column="42" selection-end-line="108" selection-end-column="28" />
-          <folding>
-            <element signature="e#208#217#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/ssh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3654">
-          <caret line="178" column="119" selection-start-line="178" selection-start-column="119" selection-end-line="178" selection-end-column="119" />
-          <folding>
-            <element signature="e#167#176#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2562">
-          <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
-          <folding>
-            <element signature="e#174#183#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-1493375919/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -292,12 +277,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
+        <state relative-caret-position="304">
           <caret line="332" column="27" selection-start-line="332" selection-start-column="27" selection-end-line="332" selection-end-column="27" />
           <folding>
             <element signature="e#170#179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="125" column="19" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="19" />
+          <folding>
+            <element signature="e#174#183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/ssh.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="178" column="119" selection-start-line="178" selection-start-column="119" selection-end-line="178" selection-end-column="119" />
+          <folding>
+            <element signature="e#167#176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="146" column="24" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="24" />
+          <folding>
+            <element signature="e#208#217#0" expanded="true" />
           </folding>
         </state>
       </provider>
