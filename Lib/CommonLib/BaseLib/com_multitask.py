@@ -9,13 +9,12 @@ import time
 
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
-from GlobalConfig.global_config import TermCfg as Term
-from Lib.ComminLib.BaseLib.process import Process
-from Lib.ComminLib.BaseLib.terminal import Terminal
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_ERROR
+from .process import Process
+from .terminal import Terminal
+from .log_message import LogMessage, LOG_ERROR
 
 
-def multitask_cmd(cmd_iter, term, max_worker=None, chunk_size=1, timeout=Term.GLB_TIMEOUT):
+def multitask_cmd(cmd_iter, term, max_worker=None, chunk_size=1, timeout=5):
     """
     多进程执行cmd命令 并取回返回值
     :param cmd_iter: 可迭代的cmd 操作集 （list tuple set）
@@ -43,7 +42,7 @@ def multitask_cmd(cmd_iter, term, max_worker=None, chunk_size=1, timeout=Term.GL
     return result
 
 
-def multitask(task, args, max_worker=None, chunk_size=1, timeout=Term.GLB_TIMEOUT, by_thread=True):
+def multitask(task, args, max_worker=None, chunk_size=1, timeout=5, by_thread=True):
     """
     多任务执行task 取回返回值 使用一个terminal对象 同时执行命令
     :param task: 任务函数名
@@ -76,7 +75,7 @@ if __name__ == '__main__':
 
     st = time.perf_counter()
     # 远端执行
-    term1 = Terminal(host_ip=Term.GLB_HOST, port=22, username='root', password=Term.GLB_PASSWORD)
+    term1 = Terminal(host_ip="Term.GLB_HOST", port=22, username='root', password="Term.GLB_PASSWORD")
     term1.connect()
     res1 = multitask_cmd(['cd /home/gwl', 'pwd'], term=term1)
     for sub_result in res1:

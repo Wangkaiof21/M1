@@ -6,8 +6,7 @@
 # @Software: win10 Tensorflow1.13.1 python3.6.3
 
 import allure
-from Lib.ComminLib.BaseLib.log_message import LOG_ERROR, LOG_INFO, LOG_WARN, LogMessage, LOG_SYS
-from Lib.ComminLib.CoreLib.msg_center import MsgCenter
+from ..BaseLib.log_message import LOG_ERROR, LOG_INFO, LOG_WARN, LogMessage, LOG_SYS
 
 # 测试机结果定义
 RET_NG = "NG"
@@ -22,8 +21,7 @@ class TestCaseFrame:
     def init(self, testcase_name="Test_001"):
         self.case_name = testcase_name
         self.case_result = RET_PASS
-        MsgCenter(testcase_name=self.case_name)
-
+        # MsgCenter(testcase_name=self.case_name)
 
     def var_create_from_conf(self, tc_dict):
         # 将config 测试数据文件中的测试点 转换成成员变量 供调用

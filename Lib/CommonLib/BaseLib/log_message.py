@@ -45,8 +45,8 @@ def LogMessage(level=LOG_INFO, module="NA", msg="NA", logger_name='iAutos'):
 
     """
     loogger = logging.getLogger(logger_name)
-    t = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-    caller = ""
+    t = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    caller = ''  # LogMessage调用者
     if level == LOG_ERROR or level == LOG_WARN:
         f_back = sys._getframe().f_back
         co_name = f_back.f_code.co_name
@@ -95,7 +95,7 @@ def timer(flag=TIMER_FLAG):
                 start_time = time.perf_counter()
                 res = fn(*args, **kwargs)
                 end_time = time.perf_counter()
-                print(f'●{fn.__name__} spend {end_time - start_time} seconds')
+                print(f'● {fn.__name__} spend {end_time - start_time} seconds')
             else:
                 res = fn(*args, **kwargs)
             return res

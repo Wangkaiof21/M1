@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_multitask.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_multitask.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/log_message.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/log_message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/mysql.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/mysql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/zentao.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/zentao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_devmem.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_devmem.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,13 +21,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/msg_center.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="146" column="24" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="24" />
+            <state relative-caret-position="819">
+              <caret line="130" selection-start-line="130" selection-end-line="162" selection-end-column="12" />
               <folding>
-                <element signature="e#208#217#0" expanded="true" />
+                <element signature="e#190#203#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/test_case_frame.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1480">
+              <caret line="80" column="42" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
+              <folding>
+                <element signature="e#178#191#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,7 +62,15 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>utf</find>
+      <find>connent</find>
+      <find>execut</find>
+      <find>self.execut</find>
+      <find>qyery</find>
     </findStrings>
+    <replaceStrings>
+      <replace>connect</replace>
+      <replace>query</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,10 +88,18 @@
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/__init__.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/log_message.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/mysql.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_multitask.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/zentao.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_devmem.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/CoreLib/test_case_frame.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="516" />
     <option name="y" value="149" />
     <option name="width" value="943" />
@@ -106,8 +143,30 @@
               <item name="M1" type="462c0819:PsiDirectoryNode" />
               <item name="Lib" type="462c0819:PsiDirectoryNode" />
               <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
-              <item name="BaseLib" type="462c0819:PsiDirectoryNode" />
-              <item name="terminal" type="462c0819:PsiDirectoryNode" />
+              <item name="CmdLib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
+              <item name="CmdLib" type="462c0819:PsiDirectoryNode" />
+              <item name="SysCmd" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
+              <item name="CmdLib" type="462c0819:PsiDirectoryNode" />
+              <item name="ThirdCmd" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
+              <item name="CoreLib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -174,7 +233,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -195,6 +253,17 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/ssh.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Report.bat">
       <provider selected="true" editor-type-id="text-editor">
@@ -204,9 +273,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pytest.ini">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/log_message.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://C:/py37/Lib/site-packages/requests/adapters.py">
@@ -222,16 +288,6 @@
           <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#48#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="221" column="16" selection-start-line="221" selection-start-column="16" selection-end-line="221" selection-end-column="16" />
-          <folding>
-            <element signature="e#606#615#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -277,23 +333,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="332" column="27" selection-start-line="332" selection-start-column="27" selection-end-line="332" selection-end-column="27" />
-          <folding>
-            <element signature="e#170#179#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="870">
@@ -320,6 +359,177 @@
           <caret line="146" column="24" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="24" />
           <folding>
             <element signature="e#208#217#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/py37/Lib/site-packages/colorama/ansi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1239">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/log_message.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="534">
+          <caret line="93" column="20" lean-forward="true" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+          <folding>
+            <element signature="e#175#184#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4020">
+          <caret line="598" column="21" selection-start-line="598" selection-start-column="21" selection-end-line="598" selection-end-column="21" />
+          <folding>
+            <element signature="e#170#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_multitask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-210">
+          <caret line="34" column="68" lean-forward="true" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+          <folding>
+            <element signature="e#191#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1374">
+          <caret line="120" column="30" lean-forward="true" selection-start-line="120" selection-start-column="30" selection-end-line="120" selection-end-column="30" />
+          <folding>
+            <element signature="e#606#615#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="894">
+          <caret line="332" column="27" selection-start-line="332" selection-start-column="27" selection-end-line="332" selection-end-column="27" />
+          <folding>
+            <element signature="e#170#179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/moker.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/script-copy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2184">
+          <folding>
+            <element signature="e#176#185#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1692">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#185#194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-957">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/ssh.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#165#174#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4116" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/zentao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1984">
+          <caret line="96" column="22" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
+          <folding>
+            <element signature="e#170#181#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_cei.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_devmem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2931">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#180#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_cpu.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_disk.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_dmesg.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_ifconfig.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_ping.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_resctrl.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_sed.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_sys_info.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/msg_center.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="819">
+          <caret line="130" selection-start-line="130" selection-end-line="162" selection-end-column="12" />
+          <folding>
+            <element signature="e#190#203#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/test_case_frame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1480">
+          <caret line="80" column="42" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
+          <folding>
+            <element signature="e#178#191#0" expanded="true" />
           </folding>
         </state>
       </provider>

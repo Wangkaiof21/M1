@@ -8,27 +8,26 @@
 import time
 import pymysql
 
-from Lib.ComminLib.CoreLib.msg_center import MsgCenter
-from GlobalConfig.global_config import MySqlCfg as Cfg
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_ERROR, LOG_INFO
+from ..CoreLib.msg_center import MsgCenter
+from .log_message import LogMessage, LOG_ERROR, LOG_INFO
 
 
 class Mysql:
     mysql = {}
 
-    def __init__(self):
+    def __init__(self, user, port, password, host, dbname, charset):
         """
         初始化配置
 
         """
-        self.user = "root"
-        self.port = Cfg.GLB_PROT
-        self.password = Cfg.GLB_PASSWORD
-        self.host = Cfg.GLB_HOST
-        self.dbname = Cfg.GLB_DBNAME
-        self.charset = Cfg.GLB_CHARSET
+        self.user = user
+        self.port = port
+        self.password = password
+        self.host = host
+        self.dbname = dbname
+        self.charset = charset
 
-    def connent(self, times=3, interval_time=3):
+    def connect(self, times=3, interval_time=3):
         """
         数据库连接
         :param times: 重连次数
@@ -51,7 +50,7 @@ class Mysql:
                 _connected = True
             except Exception as e:
                 LogMessage(level=LOG_ERROR, module="Mysql",
-                           msg="Mysql connect failed[ERROR:{}], please check".format(e))
+                           msg=f"Mysql connect failed[ERROR:{e}], please check")
                 _times += 1
                 time.sleep(interval_time)
 
@@ -62,7 +61,7 @@ class Mysql:
         return _connected
 
     def permission(self, usr, usr_pw, times=3, interval_time=3):
-        permission_user = ['user', 'test']
+        permission_user = ['root', 'test']
         for user in permission_user:
             if usr == user:
                 _times = 1
@@ -79,7 +78,7 @@ class Mysql:
                         _connected = True
                     except Exception as e:
                         LogMessage(level=LOG_ERROR, module="Mysql",
-                                   msg="Mysql connect failed[ERROR:{}], please check".format(e))
+                                   msg=f"Mysql connect failed[ERROR:{e}], please check")
                         _times += 1
                         time.sleep(interval_time)
                     if _connected:
@@ -103,7 +102,7 @@ class Mysql:
         # 大小写兼容处理 转换为小写
         sql = sql.lower()
         # 先判断连接状态
-        if self.connent():
+        if self.connect():
             db = self.mysql
             cursor = db.cursor()  # 建立游标
             result = ''  # 返回结果的初始值
@@ -129,7 +128,7 @@ class Mysql:
         # 大小写兼容处理 转换为小写
         sql = sql.lower()
         # 先判断连接状态
-        if self.connent():
+        if self.connect():
             db = self.mysql
             cursor = db.cursor()  # 建立游标
             result = ''  # 返回结果的初始值
@@ -158,7 +157,7 @@ class Mysql:
         LogMessage(level=LOG_ERROR, module="Mysql", msg=result)
         return result
 
-    def execut(self, sql):
+    def execute(self, sql):
         """
         传入操作执行类sql 并执行
         :param sql: sql语句
@@ -167,7 +166,7 @@ class Mysql:
         # 大小写兼容处理 转换为小写
         sql = sql.lower()
         # 先判断连接状态
-        if self.connent():
+        if self.connect():
             cursor = self.mysql.cursor()
             try:
                 cursor.execute(sql)
@@ -234,44 +233,44 @@ class Mysql:
         if not charset:
             sql = "create database {};".format(db_name)
         else:
-            sql = "create database {} char set {};".format(db_name, charset)
+            sql = "create database {} character set {};".format(db_name, charset)
         if self.database_exist(db_name):
             LogMessage(level=LOG_ERROR, module="Mysql", msg="Database[{}] has been exist".format(db_name))
             cmd_status = False
         else:
-            if self.execut(sql):
+            if self.execute(sql):
                 # 检查是否创建成功
                 if not self.database_exist(db_name, quiet=True):
                     cmd_status = False
         LogMessage(level=LOG_INFO, module="Mysql", msg="{}\n{}".format(sql, cmd_status))
         return cmd_status
-    
+
     def database_show(self, quiet=False):
         """
         查询所有数据库
-        
-        :param quiet: 静默模式 默认关闭 
+
+        :param quiet: 静默模式 默认关闭
         :return: 所有数据库
-        
+
         """
         sql = "show databases;"
         database_data = self.all_get(sql)
         if not quiet:
             LogMessage(level=LOG_INFO, module="Mysql", msg="{}\n{}".format(sql, database_data))
         return database_data
-    
+
     def database_exist(self, db_name, quiet=False):
         """
         通过库名查询数据库在不在
         :param db_name: 库名
-        :param quiet: 静默模式 默认关闭 
+        :param quiet: 静默模式 默认关闭
         :return:  执行状态 True or False
-        
+
         """
         cmd_status = True
         database_data = self.database_show(quiet=quiet)
-        database_str = ",".join([value for database in database_data for key, value in database.items()])
-        if db_name not in database_str:
+        databases_str = ",".join([value for database in database_data for key, value in database.items()])
+        if db_name not in databases_str:
             cmd_status = False
         return cmd_status
 
@@ -288,10 +287,10 @@ class Mysql:
         sql = "drop database {};".format(db_name)
         # 先执行查询 再删除
         if not self.database_exist(db_name):
-            LogMessage(level=LOG_ERROR, module='Mysql', msg="Dtaabase [{}] doesn't exist".format(db_name))
+            LogMessage(level=LOG_ERROR, module='Mysql', msg="Database [{}] doesn't exist".format(db_name))
             cmd_status = False
         else:
-            if self.execut(sql):
+            if self.execute(sql):
                 # 检查是否被删除
                 if self.database_exist(db_name):
                     cmd_status = False
@@ -312,20 +311,20 @@ class Mysql:
         # 命令状态标识
         cmd_status = True
         # 表结构数据拼接字符
-        structure_data = ", ".join(["{} {}({})".format(field_name, field_type, field_length)\
+        structure_data = ", ".join(["{} {}({})".format(field_name, field_type, field_length)
                                     for field_name, field_type, field_length in tb_structure])
         # 大小写兼容处理
         structure_data = structure_data.lower()
         # 根据是否传入编码类型 生成对应sql语句
         if not charset:
-            sql = "creat table {}({});".format(tb_name, structure_data)
+            sql = "create table {}({});".format(tb_name, structure_data)
         else:
-            sql = "creat table {}({}) charset={};".format(tb_name, structure_data, charset)
+            sql = "create table {}({}) charset={};".format(tb_name, structure_data, charset)
         if self.table_exist(tb_name):
             LogMessage(level=LOG_ERROR, module="Mysql", msg=" Table [{}] has been exist ".format(tb_name))
             cmd_status = False
         else:
-            if self.execut(sql):
+            if self.execute(sql):
                 # 检查表是否创建成功
                 if not self.table_exist(tb_name, quiet=True):
                     cmd_status = False
@@ -360,7 +359,7 @@ class Mysql:
                 cmd_status = False
             return cmd_status
         else:
-            LogMessage(level=LOG_ERROR, module="Mysql", msg="can't connect to MYSQL Server")
+            LogMessage(level=LOG_ERROR, module="Mysql", msg="Can't connect to MYSQL Server")
 
     def table_structure(self, tb_name):
         """
@@ -391,15 +390,15 @@ class Mysql:
             LogMessage(level=LOG_ERROR, module="Mysql", msg="Table [{}] doesn't exist".format(tb_name))
             cmd_status = False
         else:
-            if self.execut(sql):
-                # 检查是否删除
+            if self.execute(sql):
+                # 检查表是否被删除
                 if self.table_exist(tb_name, quiet=True):
                     cmd_status = False
 
         LogMessage(level=LOG_INFO, module="Mysql", msg="{}\n{}".format(sql, cmd_status))
         return cmd_status
 
-    def qyery(self, tb_name, fields='*', condition='', group='', order='', having='', limit='', distinct=False):
+    def query(self, tb_name, fields='*', condition='', group='', order='', having='', limit='', distinct=False):
 
         """
         根据传入的具体信息 创建表
@@ -422,10 +421,10 @@ class Mysql:
         if order:
             order = "order by" + order.lower()
         if having:
-            having = "having" + having.lower()
+            having = "having " + having.lower()
         if limit:
             if isinstance(limit, tuple):
-                limit = "limit " + str(limit[0]) + ', ' + str(limit[1])
+                limit = 'limit ' + str(limit[0]) + ', ' + str(limit[1])
             else:
                 limit = 'limit' + str(limit)
             limit = limit.lower()
@@ -459,74 +458,75 @@ class Mysql:
         # 获取对应的表结构
         table_structure = self.raw_sql("desc {}".format(tb_name))
         table_fields = [field["Field"] for field in table_structure]
-        keyworld_list = ['ADD', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'AS', 'ASC', 'ASENSITIVE', 'BEFORE', 'BETWEEN',
-                         'BIGINT',
-                         'BINARY',
-                         'BLOB', 'BOTH', 'BY', 'CALL', 'CASCADE', 'CASE', 'CHANGE', 'CHAR', 'CHARACTER', 'CHECK',
-                         'COLLATE',
-                         'COLUMN', 'CONDITION', 'CONSTRAINT', 'CONTINUE', 'CONVERT', 'CREATE', 'CROSS', 
-                         'CURRENT_DATE', 
-                         'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'CURRENT_USER', 'CURSOR', 'DATABASE', 'DATABASES', 
-                         'DAY_HOUR',
-                         'DAY_MICROSECOND', 'DAY_MINUTE', 'DAY_SECOND', 'DEC', 'DECIMAL', 'DECLARE', 'DEFAULT',
-                         'DELAYED', 
-                         'DELETE',
-                         'DESC', 'DESCRIBE', 'DETERMINISTIC', 'DISTINCTROW', 'DIV', 'DOUBLE', 'DROP', 'DUAL',
-                         'EACH', 
-                         'ELSE', 'ELSEIF', 'ENCLOSED', 'ESCAPED', 'EXISTS', 'EXIT', 'EXPLAIN', 'FALSE', 'FETCH',
-                         'FLOAT',
-                         'FLOAT4', 
-                         'FLOAT8', 'FOR', 'FORCE', 'FOREIGN', 'FROM', 'FULLTEXT', 'GOTO', 'GRANT', 'GRANT', 'GROUP', 
-                         'HAVING',
-                         'HIGH_PRIORITY', 'HOUR_MICROSECOND', 'HOUR_MINUTE', 'HOUR_SECOND', 'IF', 'IGNORE', 'IN', 
-                         'INDEX', 
-                         'INFILE', 
-                         'INNER', 'INOUT', 'INSENSITIVE', 'INSERT', 'INT', 'INT1', 'INT2', 'INT3', 'INT4', 'INT5',
-                         'INT6', 'INT7', 'INT8',
-                         'INTEGER',
-                         'INTERVAL', 'INTO', 'IS', 'ITERATE', 'JOIN', 'KEY', 'KEYS', 'KILL', 'LABEL', 'LEADING',
-                         'LEAVE',
-                         'LEFT',
-                         'LIKE', 'LIMIT', 'LINEAR', 'LINES', 'LOAD', 'LOCALTIME', 'LOCALTIME', 'LOCK', 'LONG',
-                         'LONGBLOB',
-                         'LONGTEXT', 'LOOP', 'LOW_PRIORITY', 'MATCH', 'DIV', 'DOUBLE', 'DROP', 'DUAL',
-                         'MIDDLEINT', 
-                         'MINUTE_MICROSECOND', 'MINUTE_SECOND', 'MOD', 'MODIFIES', 'NATURAL', 'NOT', 
-                         'NULL',
-                         'NO_WRITE_TO_BINLOG',
-                         'NUMERIC', 'NO', 'OPTIMIZE', 'OPTION', 'OPTIONALLY', 'OR', 'ORDER', 'OUT', 'OUTER', 'OUTFILE',
-                         'PRECISION', 
-                         'PRIMARY', 'PROCEDURE', 'PURGE', 'RAID0', 'RANGE', 'READ', 'READS', 'REAL', 'REFERENCES',
-                         'REGEXP', 
-                         'RELEASE', 'RENAME', 'REPEAT', 'REPLACE', 'REQUIRE', 'RESTRICT', 'RETURN', 'REVOKE', 'RIGHT',
-                         'RLIKE',
-                         'SCHEMA', 'SCHEMAS', 'SECOND_MICROSECOND', 'SELECT', 'SENSITIVE', 'SEPARATOR', 'SET', 'SHOW',
-                         'SMALLINT',
-                         'SPATIAL', 'SPECIFIC', 'SQL', 'SQLEXCEPTION', 'SQLWARNING', 'SQL_BIG_RESULT',
-                         'SQL_CALC_FOUND_ROWS', 'SQL_SMALL_RESULT', 'SSL', 'STARTING', 'STRAIGHT_JOIN', 'TABLE',
-                         'TERMINATED',
-                         'THEN', 'TINYBLOB', 'TINYINT', 'TINYTEXT', 'TO', 'TRAILING', 'TRIGGER', 'TRUE', 'UNDO', 'UNION',
-                         'UNIQUE',
-                         'UNLOCK', 'UNSIGNED', 'UPDATE', 'USAGE', 'USE', 'USING', 'UTC_DATE', 'UTC_TIME',
-                         'UTC_TIMESTAMP',
-                         'VALUES',
-                         'VARBINARY', 'VARCHAR', 'VARCHARACTER', 'VARYING', 'WHEN', 'WHERE', 'WHILE', 'WITH', 'WRITE',
-                         'X509',
-                         'XOR', 
-                         'YEAR_MONTH', 'ZEROFILL',
-                         ]
+        keyword_list = ['ADD', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'AS', 'ASC', 'ASENSITIVE', 'BEFORE', 'BETWEEN',
+                        'BIGINT',
+                        'BINARY',
+                        'BLOB', 'BOTH', 'BY', 'CALL', 'CASCADE', 'CASE', 'CHANGE', 'CHAR', 'CHARACTER', 'CHECK',
+                        'COLLATE',
+                        'COLUMN', 'CONDITION', 'CONSTRAINT', 'CONTINUE', 'CONVERT', 'CREATE', 'CROSS',
+                        'CURRENT_DATE',
+                        'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'CURRENT_USER', 'CURSOR', 'DATABASE', 'DATABASES',
+                        'DAY_HOUR',
+                        'DAY_MICROSECOND', 'DAY_MINUTE', 'DAY_SECOND', 'DEC', 'DECIMAL', 'DECLARE', 'DEFAULT',
+                        'DELAYED',
+                        'DELETE',
+                        'DESC', 'DESCRIBE', 'DETERMINISTIC', 'DISTINCTROW', 'DIV', 'DOUBLE', 'DROP', 'DUAL',
+                        'EACH',
+                        'ELSE', 'ELSEIF', 'ENCLOSED', 'ESCAPED', 'EXISTS', 'EXIT', 'EXPLAIN', 'FALSE', 'FETCH',
+                        'FLOAT',
+                        'FLOAT4',
+                        'FLOAT8', 'FOR', 'FORCE', 'FOREIGN', 'FROM', 'FULLTEXT', 'GOTO', 'GRANT', 'GRANT', 'GROUP',
+                        'HAVING',
+                        'HIGH_PRIORITY', 'HOUR_MICROSECOND', 'HOUR_MINUTE', 'HOUR_SECOND', 'IF', 'IGNORE', 'IN',
+                        'INDEX',
+                        'INFILE',
+                        'INNER', 'INOUT', 'INSENSITIVE', 'INSERT', 'INT', 'INT1', 'INT2', 'INT3', 'INT4', 'INT5',
+                        'INT6', 'INT7', 'INT8',
+                        'INTEGER',
+                        'INTERVAL', 'INTO', 'IS', 'ITERATE', 'JOIN', 'KEY', 'KEYS', 'KILL', 'LABEL', 'LEADING',
+                        'LEAVE',
+                        'LEFT',
+                        'LIKE', 'LIMIT', 'LINEAR', 'LINES', 'LOAD', 'LOCALTIME', 'LOCALTIME', 'LOCK', 'LONG',
+                        'LONGBLOB',
+                        'LONGTEXT', 'LOOP', 'LOW_PRIORITY', 'MATCH', 'DIV', 'DOUBLE', 'DROP', 'DUAL',
+                        'MIDDLEINT',
+                        'MINUTE_MICROSECOND', 'MINUTE_SECOND', 'MOD', 'MODIFIES', 'NATURAL', 'NOT',
+                        'NULL',
+                        'NO_WRITE_TO_BINLOG',
+                        'NUMERIC', 'NO', 'OPTIMIZE', 'OPTION', 'OPTIONALLY', 'OR', 'ORDER', 'OUT', 'OUTER', 'OUTFILE',
+                        'PRECISION',
+                        'PRIMARY', 'PROCEDURE', 'PURGE', 'RAID0', 'RANGE', 'READ', 'READS', 'REAL', 'REFERENCES',
+                        'REGEXP',
+                        'RELEASE', 'RENAME', 'REPEAT', 'REPLACE', 'REQUIRE', 'RESTRICT', 'RETURN', 'REVOKE', 'RIGHT',
+                        'RLIKE',
+                        'SCHEMA', 'SCHEMAS', 'SECOND_MICROSECOND', 'SELECT', 'SENSITIVE', 'SEPARATOR', 'SET', 'SHOW',
+                        'SMALLINT',
+                        'SPATIAL', 'SPECIFIC', 'SQL', 'SQLEXCEPTION', 'SQLWARNING', 'SQL_BIG_RESULT',
+                        'SQL_CALC_FOUND_ROWS', 'SQL_SMALL_RESULT', 'SSL', 'STARTING', 'STRAIGHT_JOIN', 'TABLE',
+                        'TERMINATED',
+                        'THEN', 'TINYBLOB', 'TINYINT', 'TINYTEXT', 'TO', 'TRAILING', 'TRIGGER', 'TRUE', 'UNDO',
+                        'UNION',
+                        'UNIQUE',
+                        'UNLOCK', 'UNSIGNED', 'UPDATE', 'USAGE', 'USE', 'USING', 'UTC_DATE', 'UTC_TIME',
+                        'UTC_TIMESTAMP',
+                        'VALUES',
+                        'VARBINARY', 'VARCHAR', 'VARCHARACTER', 'VARYING', 'WHEN', 'WHERE', 'WHILE', 'WITH', 'WRITE',
+                        'X509',
+                        'XOR',
+                        'YEAR_MONTH', 'ZEROFILL',
+                        ]
         for element in table_fields:
-            for keyworld in keyworld_list:
-                if element == keyworld.lower():
+            for keyword in keyword_list:
+                if element == keyword.lower():
                     table_fields[table_fields.index(element)] = "`{}`".format(element)
-                    
+
         # 对插入的记录数量进行预先查询
         previous_query = self.count_get(tb_name)
         value_str = ", ".join(str(value) for value in insert_data)
         value_str = value_str.lower()
         # 生成完整sql
         sql = "insert into {}({}) values{};".format(tb_name, ", ".join(table_fields).lower(), value_str)
-        if self.execut(sql):
+        if self.execute(sql):
             # 对记录数据查询 验证插入是否成功
             last_query = self.count_get(tb_name)
             if last_query['count(*)'] < previous_query['count(*)']:
@@ -534,7 +534,7 @@ class Mysql:
         LogMessage(level=LOG_INFO, module="Mysql", msg="{}\n{}".format(sql, cmd_status))
         return cmd_status
 
-    def up_date(self, tb_name, update_field, condition):
+    def update(self, tb_name, update_field, condition):
         """
         更新表 根基表名，向指定的表更新数据
         :param tb_name: 表名
@@ -548,14 +548,12 @@ class Mysql:
         condition = condition.lower()
         # 命令状态标识
         cmd_status = True
-        # 对更新记录预先查询
-
         # 对插入的记录数量进行预先查询
         query_condition = " and ".join(update_field.split(',')).lower()
         previous_query = self.count_get(tb_name, condition=query_condition)
         # 生成完整sql
         sql = "update {} set {} where {};".format(tb_name, update_field, condition)
-        if self.execut(sql):
+        if self.execute(sql):
             # 对记录数据查询 验证插入是否成功
             last_query = self.count_get(tb_name, condition=query_condition)
             if last_query['count(*)'] < previous_query['count(*)']:
@@ -580,7 +578,7 @@ class Mysql:
         query_condition = " and ".join(condition.split(','))
         # 生成完整sql
         sql = "delete from {} where {};".format(tb_name, condition)
-        self.execut(sql)
+        self.execute(sql)
         # 对记录数量再次查询
         last_query = self.count_get(tb_name, condition=query_condition)
 
@@ -596,7 +594,9 @@ class Mysql:
         :return:
         """
         if self.mysql:
+            # 关闭游标
             self.mysql.cursor().close()
+            # 关闭数据库连接
             self.mysql.close()
 
 
