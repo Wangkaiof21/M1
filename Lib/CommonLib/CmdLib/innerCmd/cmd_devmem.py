@@ -6,8 +6,8 @@
 # @Software: win10 Tensorflow1.13.1 python3.6.3
 
 import re
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_INFO, LOG_ERROR
-from Lib.ComminLib.BaseLib.terminal import Terminal
+from ...log_message import LogMessage, LOG_INFO, LOG_ERROR
+from ...terminal import Terminal
 
 
 class DevMem:

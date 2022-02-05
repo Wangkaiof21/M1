@@ -26,9 +26,9 @@ class TermView:
 
 
 # 可能不准确
-ENTER_CHAR = {"os": "\n", "bmc": "\n", "uefi": "\r\n", "scp": "\n", "mcp": "\r\n", "itos": "\r\n"}
+ENTER_CHAR = {"os": "\n", "bmc": "\n", "uefi": "\r\n", "scp": "\r\n", "mcp": "\r\n", "itos": "\r\n"}
 GLB_ENTER_CHAR = {"Windows": "\r\n", "Linux": "\n", "Darwin": "\r"}
-PAT_CONNECTOR = {"Windows": "\r\n", "Linux": "\n", "Darwin": "\r"}
+PATH_CONNECTOR = {"Windows": "\\", "Linux": "/", "Darwin": "/"}
 
 # 先识别失败在识别成功
 ERROR_RESULT_MAP = {
@@ -67,7 +67,8 @@ class Terminal:
         elif self.type == "ssh":
             self.term = Ssh(host_ip=host_ip, port=port, username=username, password=password, timeout=timeout,
                             proxy=proxy, proxy_ip=proxy_ip, proxy_port=proxy_port, proxy_username=proxy_username,
-                            proxy_password=proxy_password, enter_char=enter_char, input_interval=input_interval,
+                            proxy_password=proxy_password, hold=hold, enter_char=enter_char,
+                            input_interval=input_interval,
                             )
         elif self.type == "com":
             self.term = Com(port=port, baud_rate=baud_rate, timeout=timeout)
@@ -84,15 +85,15 @@ class Terminal:
         ssh尝试连接两次 telnet尝试连接三次 前两次使用实例化时传递的参数进行连接操作 第三次改变view mode进行连接
         :return:
         """
-        connect_time = 0
+        connect_times = 0
         LogMessage(module="Terminal", msg=f"{self} connecting......")
-        while not self.is_connected and connect_time <= 3:
+        while not self.is_connected and connect_times <= 3:
             self.is_connected = self.term.connected()
-            connect_time += 1
+            connect_times += 1
         if self.is_connected:
             LogMessage(module="Terminal", msg=f"{self} connected")
         else:
-            LogMessage(module="Terminal", msg=f"{self} connected fail", level=LOG_ERROR)
+            LogMessage(level=LOG_ERROR, module="Terminal", msg=f"{self} connected fail")
 
         return self.is_connected
 
@@ -102,10 +103,10 @@ class Terminal:
             self.term.close()
             self.is_connected = False
             LogMessage(module="Terminal", msg=f"{self} disconnect successfully......")
-        LogMessage(module="Terminal", msg=f"{self} is_connected:{self.term.is_connected}")
+        LogMessage(module="Terminal", msg=f"{self} is_connected: {self.term.is_connected}")
         return not self.is_connected
 
-    def cmd_send(self, cmd, timeout=None, wait4res=True, delay_recv=0, ret_str="", wait4ret_str=False,
+    def cmd_send(self, cmd, timeout=None, wait4res=True, delay_recv=0, ret_str='', wait4ret_str=False,
                  quite=False) -> dict:
         """
 

@@ -11,8 +11,8 @@ import os
 import signal
 import subprocess
 
-from Lib.ComminLib.BaseLib.log_message import LOG_ERROR, LOG_WARN, LogMessage
-from Lib.ComminLib.BaseLib.terminal import result_dict
+from .log_message import LOG_ERROR, LOG_WARN, LogMessage
+from .terminal import ERROR_RESULT_MAP
 
 
 class Process:
@@ -37,15 +37,15 @@ class Process:
         exit_code, res_out = _result
         res_dict = dict()
         if int(exit_code) == 0:
-            res_dict = result_dict[r'success']
+            res_dict = ERROR_RESULT_MAP['success']
         elif int(exit_code) == 1:
-            res_dict = result_dict[r'excut error']
+            res_dict = ERROR_RESULT_MAP['excut error']
         elif int(exit_code) == 2:
-            res_dict = result_dict[r'Invalid\s*Parameter']
+            res_dict = ERROR_RESULT_MAP[r'Invalid\s*Parameter']
         elif int(exit_code) == 3:
-            res_dict = result_dict[r'Missing\s*Parameter']
+            res_dict = ERROR_RESULT_MAP[r'Missing\s*Parameter']
         elif int(exit_code) == 4:
-            res_dict = result_dict[r'command\s*not\s*found']
+            res_dict = ERROR_RESULT_MAP[r'command\s*not\s*found']
         return res_dict
 
     def sp_cmd_send(self, cmd=''):
@@ -71,11 +71,11 @@ class Process:
         # 获取self.mp命令返回值
         if self.cur_cnt >= self.timeout:
             # 超出日志输出错误 杀死进程
-            LogMessage(level=LOG_WARN, module='Process', msg=f'Timeout Please check file {self.mp_cmd} ')
+            LogMessage(level=LOG_WARN, module='Process', msg=f'cmd:{self.mp_cmd}  Timeout Please Check ')
             try:
                 os.kill(self.mp.pid, signal.SIGKILL)
             except Exception as e:
-                LogMessage(level=LOG_ERROR, module='Process', msg=f'Kill Pid failed : {e} ')
+                LogMessage(level=LOG_ERROR, module='Process', msg=f'Kill Pid failed : {e} Please Check ')
             return False
 
         exit_code = self.mp.returncode

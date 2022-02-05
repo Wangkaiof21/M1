@@ -9,7 +9,7 @@ import sys
 import os
 import datetime
 
-from Lib.ComminLib.BaseLib.mysql import Mysql
+from .mysql import Mysql
 a = sys.path.append((os.path.dirname((os.path.abspath('__file__')))).split("Lib")[0])
 
 
@@ -105,20 +105,20 @@ class ReloadResult:
         build_name = "HAPS-B020"
 
         # zt_product表
-        product = mysql.qyery(tb_name="zt_product", fields="id", condition=f"name'{product_name}'")
+        product = mysql.query(tb_name="zt_product", fields="id", condition=f"name'{product_name}'")
         product = product[0]['id']
 
         # zt_project表
-        project = mysql.qyery(tb_name="zt_project", fields="id", condition=f"name'{project_name}'")
+        project = mysql.query(tb_name="zt_project", fields="id", condition=f"name'{project_name}'")
         project = project[0]['id']
 
         # zt_build表 通过product和project确定
-        build = mysql.qyery(tb_name="zt_build", fields="id",
+        build = mysql.query(tb_name="zt_build", fields="id",
                             condition=f"name'{build_name}' and product={product} and project={project}")
         build = build[0]['id']
 
         # zt_testtask表 通过product和project, build确定
-        testtask = mysql.qyery(tb_name="zt_testtask", fields="id",
+        testtask = mysql.query(tb_name="zt_testtask", fields="id",
                                condition=f"name='M+H_B020_PCIe' and product={product} "
                                f"and project={project} and build={build}")
         testtask = testtask[0]['id']
@@ -126,22 +126,22 @@ class ReloadResult:
         # zt_case表 通过product\用例名（testcase）确定
         try:
 
-            testcase = mysql.qyery(tb_name="zt_case", fields="id", condition=f"testcaseid='{case_name}' "
+            testcase = mysql.query(tb_name="zt_case", fields="id", condition=f"testcaseid='{case_name}' "
                                    f"and product={product}")
             testcase = testcase[0]["id"]
 
-            version = mysql.qyery(tb_name="zt_case", fields="storyVersion", condition=f"testcaseid='{case_name}' "
+            version = mysql.query(tb_name="zt_case", fields="storyVersion", condition=f"testcaseid='{case_name}' "
                                   f"and product={product}")
             version = version[0]["storyversion"]
 
             # zt_testrun 通过 testtask testcase version确定
-            testrun = mysql.qyery(tb_name="zt_testrun", fields="id", condition=f"task='{testtask}' "
+            testrun = mysql.query(tb_name="zt_testrun", fields="id", condition=f"task='{testtask}' "
                                   f"and `case`={testcase} and version {version}")
             testrun = testrun[0]["id"]
 
             # testrun数据更新 lastRunResult update方式(pass/fail填done,blocked填blocked填)
             # TODO 更新当前用例结果、状态
-            ret = mysql.up_date(tb_name="zt_testrun", update_field=f"lastRunResult='{result}', status='{status}'",
+            ret = mysql.update(tb_name="zt_testrun", update_field=f"lastRunResult='{result}', status='{status}'",
                                 condition=f'id={testrun}')
             if ret:
                 print("zt_testrun 表 更新成功")
