@@ -121,3 +121,44 @@ def take_second(elem):
     return elem[1]
 
 
+##版本对比
+def version_compare(version_a: str, version_b: str) -> bool:
+    """
+    比较版本号a 是否比版本号b 大
+    :param version_a:字符串 1.1.0
+    :param version_b:字符串 0.2
+    :return:
+    """
+    version_a = [int(i) for i in version_a.split('.')]
+    version_b = [int(i) for i in version_b.split('.')]
+    index = 0
+    while True:
+        if len(version_a) == len(version_b) == index:
+            return True
+        if len(version_a) == index:
+            version_a.append(0)
+        if len(version_b) == index:
+            version_b.append(0)
+        if version_a[index] > version_b[index]:
+            return True
+        elif version_a[index] < version_b[index]:
+            return False
+        index += 1
+
+
+# cpld版本对比
+def version_compare_cpld(version_a: str, version_b: str) -> bool:
+    """
+    比较版本号a 是否比版本号b 大
+    :param version_a:字符串 ff/0b/0c
+    :param version_b:字符串 ff/0b/0c
+    :return:
+    """
+    version_a = [int(i, 16) for i in version_a.split('/')]
+    version_b = [int(i, 16) for i in version_b.split('/')]
+    result = True
+    if len(version_a) != len(version_b):
+        return False
+    for index in range(len(version_a)):
+        result &= version_a[index] >= version_b[index]
+    return result

@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,97 +16,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2709">
-              <caret line="130" selection-start-line="130" selection-end-line="162" selection-end-column="12" />
-              <folding>
-                <element signature="e#190#203#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/test_case_frame.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1638">
-              <caret line="80" column="42" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
-              <folding>
-                <element signature="e#178#191#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="639">
-              <caret line="114" column="3" selection-start-line="114" selection-start-column="3" selection-end-line="114" selection-end-column="3" />
-              <folding>
-                <element signature="e#189#198#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_tcp_ip.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="9" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="553">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
-              <folding>
-                <element signature="e#203#212#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_patrol_2022.py">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_sys_info.py">
           <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="120" column="12" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
-              <folding>
-                <element signature="e#174#183#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
         </entry>
       </file>
     </leaf>
@@ -153,14 +74,15 @@
         <option value="$PROJECT_DIR$/Lib/CommonLib/CmdLib/innerCmd/cmd_devmem.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/CoreLib/tase_case_farme.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/CoreLib/test_case_frame.py" />
-        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_tcp_ip.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py" />
-        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_patrol_2022.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_sys_info.py" />
+        <option value="$PROJECT_DIR$/GlobalConfig/global_config.py" />
         <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py" />
+        <option value="$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_patrol_2022.py" />
       </list>
     </option>
   </component>
@@ -178,12 +100,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="M1" type="b2602c69:ProjectViewProjectNode" />
               <item name="M1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="GlobalConfig" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="M1" type="b2602c69:ProjectViewProjectNode" />
@@ -216,14 +144,6 @@
               <item name="Lib" type="462c0819:PsiDirectoryNode" />
               <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
               <item name="CmdLib" type="462c0819:PsiDirectoryNode" />
-              <item name="SysCmd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="M1" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
-              <item name="CmdLib" type="462c0819:PsiDirectoryNode" />
               <item name="ThirdCmd" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -237,7 +157,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -602,36 +521,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="639">
-          <caret line="114" column="3" selection-start-line="114" selection-start-column="3" selection-end-line="114" selection-end-column="3" />
-          <folding>
-            <element signature="e#189#198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/GlobalConfig/evbs_info.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py">
+    <entry file="file://$PROJECT_DIR$/GlobalConfig/global_config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="9" lean-forward="true" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="120" column="12" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
+        <state relative-caret-position="630">
+          <caret line="30" column="78" selection-start-line="30" selection-start-column="64" selection-end-line="30" selection-end-column="78" />
           <folding>
-            <element signature="e#174#183#0" expanded="true" />
+            <element signature="e#186#192#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
+        <state relative-caret-position="765">
           <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#203#212#0" expanded="true" />
@@ -639,19 +544,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_patrol_2022.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_sys_info.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/haps_reset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/com_tcp_ip.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/cmd_comm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="80" column="12" lean-forward="true" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="111" />
+          <folding>
+            <element signature="e#174#183#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/ExcelRealFunc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9">
+          <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
+          <folding>
+            <element signature="e#189#198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_version.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="138" column="56" lean-forward="true" selection-start-line="138" selection-start-column="56" selection-end-line="138" selection-end-column="56" />
+          <folding>
+            <element signature="e#174#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_sys_info.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/env_patrol_2022.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
