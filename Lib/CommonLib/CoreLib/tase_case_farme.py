@@ -21,6 +21,7 @@ class TestCaseFrame:
     def init(self, testcase_name="Test_001"):
         self.case_name = testcase_name
         self.case_result = RET_PASS
+        self.tc_name = ''
         # MsgCenter(testcase_name=self.case_name)
 
     def var_create_from_conf(self, tc_dict):
