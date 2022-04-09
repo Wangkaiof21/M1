@@ -1,0 +1,233 @@
+{
+  "version": "1.0",
+  "type": "service",
+  "pro_path": "E:\\9987",
+  "db_options": {
+    "opt_type": "create",
+    "db_old_version": "",
+    "type": "MySQL",
+    "db_ip": "172.168.120.71",
+    "db_name": "c3",
+    "user": "root",
+    "pwd": "123456",
+    "port": "3306"
+  },
+  "common": {
+    "tenant_code": "admin",
+    "environment": "production",
+    "register_center": "172.168.120.71:8000",
+    "local_address": "172.168.120.71",
+    "es_uri": {
+      "Uri": "",
+      "IncludeAllProperties": true
+    }
+  },
+  "services": [
+    {
+      "service": "gateway",
+      "descript": "注册中心服务",
+      "services": [
+        {
+          "service_name": "das-gateway",
+          "port": "8000"
+        }
+      ]
+    },
+    {
+      "service": "id-generator",
+      "descript": "雪花算法服务",
+      "services": [
+        {
+          "service_name": "das-id-generator",
+          "port": "6001",
+          "work_id": 100
+        }
+      ]
+    },
+    {
+      "service": "common-service",
+      "descript": "commom-serve",
+      "db_name": "Common_serve",
+      "services": [
+        {
+          "service_name": "das-common-service",
+          "port": "6002",
+          "Server": {
+            "Type": "Emqx",
+            "IP": "172.168.120.71",
+            "Port": 1883
+          }
+        }
+      ]
+    },
+    {
+      "service": "oss",
+      "descript": "oss文件服务",
+      "services": [
+        {
+          "service_name": "das-oss",
+          "port": "6003"
+        }
+      ]
+    },
+    {
+      "service": "face",
+      "descript": "人脸检测服务",
+      "services": [
+        {
+          "service_name": "das-face_dect",
+          "port": "6004"
+        }
+      ]
+    },
+    {
+      "service": "mj",
+      "descript": "门禁服务",
+      "db_name": "c3_qy",
+      "services": [
+        {
+          "service_name": "das-mj-core",
+          "descript": "门禁后台服务",
+          "port": "6060"
+        },
+        {
+          "service_name": "das-mj-webapi",
+          "descript": "门禁网站服务",
+          "port": "6061"
+        }
+      ]
+    },
+    {
+      "service": "xf",
+      "descript": "消费服务",
+      "db_name": "c3_xf",
+      "services": [
+        {
+          "service_name": "das-xf-core",
+          "descript": "消费后台服务",
+          "port": "6062"
+        },
+        {
+          "service_name": "das-xf-webapi",
+          "descript": "消费网站服务",
+          "port": "6063"
+        }
+      ]
+    },
+    {
+      "service": "kq",
+      "descript": "考勤服务",
+      "db_name": "c3_kq",
+      "services": [
+        {
+          "service_name": "das-kq-core",
+          "descript": "考勤后台服务",
+          "port": "6064"
+        },
+        {
+          "service_name": "das-kq-webapi",
+          "descript": "考勤网站服务",
+          "port": "6065"
+        }
+      ]
+    },
+    {
+      "service": "fk",
+      "descript": "访客服务",
+      "db_name": "c3_fk",
+      "services": [
+        {
+          "service_name": "das-fk-core",
+          "descript": "访客后台服务",
+          "port": "6066"
+        },
+        {
+          "service_name": "das-fk-webapi",
+          "descript": "访客网站服务",
+          "port": "6067"
+        }
+      ]
+    },
+    {
+      "service": "qy",
+      "descript": "企业服务",
+      "db_name": "c3_qy",
+      "services": [
+        {
+          "service_name": "das-qy-core",
+          "descript": "企业后台服务",
+          "port": "6068"
+        },
+        {
+          "service_name": "das-qy-webapi",
+          "descript": "企业网站服务",
+          "port": "6069"
+        }
+      ]
+    },
+    {
+      "service": "dev-service",
+      "descript": "设备服务",
+      "services": [
+        {
+          "service_name": "das-dev-service",
+          "port": "6011"
+        }
+      ]
+    },
+    {
+      "service": "iot-login",
+      "descript": "Iot",
+      "db_name": "c3_iotlogin",
+      "services": [
+        {
+          "service_name": "das-iot-login",
+          "port": "6110"
+        }
+      ]
+    },
+    {
+      "service": "mobile-api",
+      "descript": "Iot",
+      "db_name": "c3_mobile",
+      "services": [
+        {
+          "service_name": "das-iot-mobile",
+          "port": "6210"
+        }
+      ]
+    }
+  ],
+  "systems": [
+    {
+      "Name": "qy",
+      "Apps": {
+        "UI": "qy_dm"
+      }
+    },
+    {
+      "Name": "mj",
+      "Apps": {
+        "UI": "mj_webapi"
+      }
+    },
+    {
+      "Name": "xf",
+      "Apps": {
+        "UI": "xf_dm"
+      }
+    },
+    {
+      "Name": "kq",
+      "Apps": {
+        "UI": "kq_dm"
+      }
+    },
+    {
+      "Name": "fk",
+      "Apps": {
+        "UI": "fk_dm"
+      }
+    }
+  ]
+}

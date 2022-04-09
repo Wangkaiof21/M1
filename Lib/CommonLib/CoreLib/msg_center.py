@@ -65,6 +65,7 @@ class MsgCenter(object):
 
         # 第二部 创建两个hander 用于写入日志文件和打印到控制台
         date_time = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+
         # 默认当前目录为根目录
         log_path = os.getcwd()
         log_path = os.path.join(log_path, "Test_log")
@@ -72,6 +73,7 @@ class MsgCenter(object):
             os.mkdir(log_path)
         log_name = date_time + "_" + self.case_name + ".log"
         log_name = os.path.join(log_path, log_name)
+
         self.file_hander = logging.FileHandler(log_name, mode="w+", encoding='utf-8')
         self.file_hander.setLevel(level)
         # STEP2 01

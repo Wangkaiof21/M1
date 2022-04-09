@@ -1,0 +1,4 @@
+[37m2022-03-06 14:45:10	INFO	[assert_pkg.py]	Compare with {1: 11, 2: 22} and {1: 11, 2: 22, 3: 33}[0m
+[31m2022-03-06 14:45:10	ERROR	[assert_pkg.py]	Assert_in result type_error .Only dict,list,set,or tuple are supported	[assert_pkg.py:37-assert_in][0m
+[37m2022-03-06 14:45:10	INFO	[assert_pkg.py]	Compare with 123 and 1324[0m
+[37m2022-03-06 14:45:10	INFO	[assert_pkg.py]	Compare with (1, 2, 3) and {1, 2, 3, 4}[0m
