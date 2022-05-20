@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2021/2/17 17:43
-# @Author  : v_bkaiwang
+# @Time    : 2022/4/21 14:21
+# @Author  : WangKai
+# @Site    :
 # @File    : excel.py
-# @Software: win10 Tensorflow1.13.1 python3.6.3
+# @Software: PyCharm
 """
-
 Excel
 sheet_exist 装饰器 在涉及表操作之前 先检查表是否存在 没有则创建
 save_excel 保存 另存为
@@ -32,30 +32,37 @@ import openpyxl
 from openpyxl.cell.cell import Cell
 from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
-from .log_message import LogMessage, LOG_ERROR, LOG_DEBUG, LOG_WARN, LOG_INFO
+from commonlib.baselib.log_message import LogMessage, LOG_ERROR, LOG_DEBUG, LOG_INFO
 
+
+# from commonlib.baselib.msg_center import MsgCenter
+
+# MsgCenter("Excel")
 
 def sheet_exist(func):
     """
-    装饰器 在涉及表操作之前 先检查表是否存在 没有则创建
-    注意 此装饰器的函数第一个参数不能作为关键字传参
+    在涉及到表操作之前 先检查表是否存在 没有则创建
+    此函数的第一个参数不能做为关键字传参
     :param func:
     :return:
     """
 
     @wraps(func)
     def inner(*args, **kwargs):
+        LogMessage(level=LOG_INFO, module="Excel", msg=f"func {args}")
         self = args[0]
         try:
             sheet_name = args[1]
             if sheet_name not in self.sheet_list:
-                LogMessage(level=LOG_INFO, module="Excel", msg='sheet_name:"{}"不存在 新建~'.format(sheet_name))
+                LogMessage(level=LOG_INFO, module="Excel", msg=f"sheet_name:'{sheet_name}'不存在 新建....")
                 self.wb.create_sheet(sheet_name)
                 self.save()
                 self.sheet_list.append(sheet_name)
         except IndexError:
-            LogMessage(level=LOG_ERROR, module="Excel", msg='方法:"{}"得一个参数请勿使用关键字传参'.format(func.__name__))
+            LogMessage(level=LOG_ERROR, module="Excel", msg=f'方法:"{func.__name__}"得一个参数请勿使用关键字传参')
+
         res = func(*args, **kwargs)
+
         return res
 
     return inner
@@ -64,37 +71,40 @@ def sheet_exist(func):
 class Excel:
     def __init__(self, file_name, new_flag=False):
         """
-        Excel 对openpyxl封装
-        :param file_name: 需要操作的excel文件路径和名称
-        :param new_flag: 如果file_name 不存在则新建，存在也不会覆盖
+        对openpyxl封装
+        :param file_name:需要操作的excel文件路径和名称
+        :param new_flag:如果file_name 不存在则新建，存在也不会覆盖
         """
         self.file_name = file_name
         if os.path.exists(self.file_name):
             try:
                 self.wb = openpyxl.load_workbook(file_name)
             except BadZipFile as e:
-                raise BadZipFile(f"Excel 文件损坏 ,{e} ...")
+                raise BadZipFile(f"Excel 文件损坏 ,{e}.....")
         else:
             if new_flag:
                 self.wb = openpyxl.Workbook()
+                self.wb.save(file_name)
                 LogMessage(level=LOG_INFO, module="Excel", msg='sheet_name:"{}"不存在 新建~'.format(self.file_name))
             else:
                 LogMessage(level=LOG_ERROR, module="Excel", msg='sheet_name:"{}"不存在'.format(self.file_name))
+        # file_name 里面所有sheet的名字 (List[str])
         self.sheet_list = self.wb.sheetnames
         self.align = Alignment(horizontal="left", vertical="center")
 
-    def save(self, backup=False) -> None:
+    def save(self, backup=False):
         """
-        新近啊或者保存excel文件
-        :param backup:是否备份
+        新建或者保存excel文件
+        :param backup:
         :return:
         """
         if backup:
-            cur_time = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+            cur_time = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
             file_name = ".".join(self.file_name.split(".")[:-1])
-            suffix = self.file_name.split(".")[:-1]
-            shutil.copy(self.file_name, f'{file_name}_{cur_time}.{suffix}')
-        LogMessage(level=LOG_DEBUG, module="Excel", msg='Save "{}"....'.format(self.file_name))
+            suffix = self.file_name.split(".")[-1]
+            # print(f"{file_name}_{cur_time}.{suffix}")
+            shutil.copy(self.file_name, f"{file_name}_{cur_time}.{suffix}")
+        LogMessage(level=LOG_DEBUG, module="Excel", msg=f"Save '{self.file_name}'....")
         try:
             self.wb.save(self.file_name)
         except PermissionError:
@@ -102,8 +112,8 @@ class Excel:
 
     def sheet_delete(self, sheet_name) -> None:
         """
-        删除表
-        :param sheet_name: 表名
+        删除 sheet表
+        :param sheet_name:
         :return:
         """
         if sheet_name in self.sheet_list:
@@ -117,8 +127,8 @@ class Excel:
     @sheet_exist
     def sheet_handler(self, sheet_name):
         """
-        获取表对象 如果表名不在excel文件夹里 就创建
-        :param sheet_name: 表吗名
+        获取对象名 如果表不在excel里 就创建
+        :param sheet_name: 表名
         :return:
         """
         return self.wb[sheet_name] if sheet_name in self.sheet_list else self.wb.create_sheet(sheet_name)
@@ -133,19 +143,19 @@ class Excel:
         :return: 单元格操作对象
         """
         sheet = self.sheet_handler(sheet_name)
-        sheet[f"{get_column_letter(column)}{row}"].alignment = self.align  # 设置cell格式
+        sheet[f'{get_column_letter(column)}{row}'].alignment = self.align  # 设置cell格式
         return sheet.cell(row, column)
 
     @sheet_exist
     def query(self, sheet_name, row_start=None, row_end=None, column_start=None, column_end=None, by="row"):
         """
-        从excel查询指定范围数据
-        :param sheet_name: 表名
-        :param row_start: 开始行idx
-        :param row_end: 结束行idx
-        :param column_start: 开始列idx
-        :param column_end: 结束列idx
-        :param by: 生成行迭代器 生成列迭代器
+        从excel查询指定范围的数据
+        :param sheet_name:表名
+        :param row_start:开始行idx
+        :param row_end:结束行idx
+        :param column_start:开始列idx
+        :param column_end:结束列idx
+        :param by:生成迭代器
         :return:
         """
         sheet = self.sheet_handler(sheet_name)
@@ -156,133 +166,6 @@ class Excel:
             child_sheet = sheet.iter_cols(min_row=row_start, max_row=row_end, min_col=column_start, max_col=column_end,
                                           values_only=True)
         return child_sheet
-
-    @sheet_exist
-    def row_insert(self, sheet_name, row_index, amount=1) -> None:
-        """
-        在指定行之上插入若干行
-        :param sheet_name: 表名
-        :param row_index: 行号
-        :param amount: 行数
-        :return:
-        """
-        sheet = self.sheet_handler(sheet_name)
-        sheet.insert_rows(row_index, amount)
-        LogMessage(level=LOG_DEBUG, module="Excel",
-                   msg=f"Insert {amount} row(s) before row{row_index} in Sheet: {sheet_name}")
-
-    @sheet_exist
-    def row_delete(self, sheet_name, row_index, amount=1):
-        """
-
-        :param sheet_name: 表名
-        :param row_index: 行号
-        :param amount: 行数
-        :return: 删除的行号
-        """
-        sheet = self.sheet_handler(sheet_name)
-        sheet.delete_rows(row_index, amount)
-        LogMessage(level=LOG_DEBUG, module="Excel",
-                   msg=f"Delete {amount} row(s) before row{row_index} in Sheet: {sheet_name}")
-
-    @sheet_exist
-    def rows_delete_discrete(self, sheet_name, row_indexs: list):
-        """
-        根据行号 删除不连续的多行
-        :param sheet_name: 表名
-        :param row_indexs: 行号
-        :return:
-        """
-        for row_index in sorted(row_indexs, reverse=True):  # 要从底部开始删除
-            self.row_delete(sheet_name, row_index, 1)
-
-    @sheet_exist
-    def columns_name_get(self, sheet_name) -> dict:
-        """
-        将sheet第一列作为列名 显示所有的列名称对应的列数
-        :param sheet_name: 表明
-        :return: 所有列{名称：列标}
-        """
-        sheet = self.sheet_handler(sheet_name)
-        try:
-            columns_names = [cell.calue for cell in list(sheet.rows)[0]]
-            return {k: v + 1 for v, k in enumerate(columns_names)}
-        except IndexError:
-            LogMessage(level=LOG_ERROR, module="Excel", msg="Empty Sheet.....")
-            return dict()
-
-    @sheet_exist
-    def column_index_get_by_name(self, sheet_name, column_name, write_new_col=False) -> int:
-        """
-        根据列名 返回其列号
-        如果没找到
-        :param sheet_name:
-        :param column_name:
-        :param write_new_col:
-        :return:
-        """
-        col_names = self.columns_name_get(sheet_name)
-        if col_names:
-            try:
-                return col_names[column_name]
-            except KeyError:
-                if write_new_col:
-                    index = self.sheet_handler(sheet_name).max_column + 1
-                    LogMessage(level=LOG_DEBUG, module="Excel",
-                               msg="Column name '{}' not found ,add it at (1,{}....)".format(column_name, index))
-                    self.cell_handler(sheet_name, row=1, column=index).value = column_name
-                    return index
-                else:
-                    LogMessage(level=LOG_DEBUG, module="Excel",
-                               msg="Not found '{}' in '{}'".format(column_name, col_names))
-                    return 0
-        # sheet 为空
-        else:
-            if write_new_col:
-                LogMessage(level=LOG_DEBUG, module="Excel",
-                           msg="Empty Sheet...,add  '{}'  at (1,1)....".format(column_name))
-                self.cell_handler(sheet_name, row=1, column=1).value = column_name
-                self.save()
-                self.wb.close()
-                return 1
-            else:
-                LogMessage(level=LOG_DEBUG, module="Excel",
-                           msg="Not found '{}' in '{}'".format(column_name, col_names))
-                return 0
-
-    @sheet_exist
-    def column_hidden(self, sheet_name, column_name) -> None:
-        """
-        隐藏列
-        :param sheet_name: 表明
-        :param column_name: 列名
-        :return: by index 通过索引找到列 ,name 通过名字找到列 ,letter 通过字母找到列
-
-        """
-        sheet = self.sheet_handler(sheet_name)
-        try:
-            column_index = self.column_index_get_by_name(sheet_name)
-            column_letter = get_column_letter(column_index)
-            sheet.column_dimensions[column_letter].hidden = True
-        except ValueError:
-            LogMessage(level=LOG_INFO, module="Excel", msg=f"Not Found column {column_name}")
-            self.save()
-
-    @sheet_exist
-    def column_get_by_col_name(self, sheet_name, column_name) -> list:
-        """
-        指定列名 获取整列信息
-        :param sheet_name: 表明
-        :param column_name: 列明
-        :return: [column_name,column_data....]
-        """
-        sheet = self.sheet_handler(sheet_name)
-        col_index = column_name if isinstance(column_name, int) else self.column_index_get_by_name(sheet_name,
-                                                                                                   column_name)
-        column_ganerator = self.query(sheet_name, row_start=0, row_end=sheet.max_column, column_start=col_index,
-                                      column_end=col_index, by="column")
-        res_list = list(list(column_ganerator)[0])
-        return res_list
 
     @sheet_exist
     def records_get(self, sheet_name, row_start=None, row_end=None, column_start=None, column_end=None,
@@ -307,17 +190,17 @@ class Excel:
         return [dict(zip(keys, values)) for values in records]
 
     @sheet_exist
-    def records_write(self, sheet_name, records, stat_row=None) -> None:
+    def records_write(self, sheet_name, records, start_row=None) -> None:
         """
         写入符合格式数据 [{},{}...]
         :param sheet_name: 表名字
         :param records: 期望数据[{},{}...]
-        :param stat_row: 开始行
+        :param start_row: 开始行
         :return:
         """
         sheet = self.sheet_handler(sheet_name)
         """如果传入指定行 则从指定行传入数据 否则则在最后一行插入数据"""
-        row = stat_row if stat_row else sheet.max_row + 1
+        row = start_row if start_row else sheet.max_row + 1
         # 判断data是否为list
         try:
             for record in records:
@@ -325,52 +208,102 @@ class Excel:
                 for key in record.keys():
                     self.column_index_get_by_name(sheet_name, key, write_new_col=True)
                 for col_name in self.columns_name_get(sheet_name):
+                    """
+                    id 获取一行的key名
+                    """
                     col_index = self.column_index_get_by_name(sheet_name, col_name)
+                    """获取列号"""
                     value = record.get(col_name)
-                    LogMessage(level=LOG_DEBUG, module="Excel",
+                    LogMessage(level=LOG_INFO, module="Excel",
                                msg=f"In '{sheet_name}',Cell({row}, {col_name}, set{value})")
+                    # print(sheet_name, row, col_index)
                     self.cell_handler(sheet_name, row, col_index).value = value
-                    row += 1
-                self.save()
-                self.wb.close()
+                row += 1
+            self.save()
+            self.wb.close()
         except Exception as e:
             LogMessage(level=LOG_ERROR, module="Excel", msg=f"记录写入异常 写入未保存{e}")
 
     @sheet_exist
-    def cell_merge(self, sheet_name, row, column, cell_name, cell_name2) -> None:
-        sheet = self.sheet_handler(sheet_name)
-        sheet.merge_cells(f"{cell_name}{row}:{cell_name2}{column}")
-
-    @sheet_exist
-    def write_col_data(self, sheet_name, records, row, col) -> None:
+    def column_index_get_by_name(self, sheet_name, column_name, write_new_col=False) -> int:
         """
-        写入复合数据
+        根据列名 返回其列号
+        如果没找到
         :param sheet_name:
-        :param records:
-        :param row:
-        :param col:
+        :param column_name:
+        :param write_new_col:
         :return:
         """
-        sheet = self.sheet_handler(sheet_name)
-        row = row if row else sheet.max_row + 1
-        header = ""
-        for record in records:
-            header = list(record.keys())
-        for index in range(len(header)):
-            self.cell_handler(sheet_name, row=row, column=col + index).value = header[index]
-        row = 2
-        for record in records:
-            for index, value in enumerate(record.values()):
-                self.cell_handler(sheet_name, row=row, column=col + index).value = value
-            row += 1
-        self.save()
-        self.wb.close()
+        col_names = self.columns_name_get(sheet_name)
+        # {'id': 1, 'dialog_id': 2, 'instance_id': 3, 'dialog_no': 4, 'action_id': 5, 'item_list': 6}
+        if col_names:
+            try:
+                # 返回 元素的列号
+                # print("sssss", col_names[column_name])
+                return col_names[column_name]
+            except KeyError:
+                if write_new_col:
+                    index = self.sheet_handler(sheet_name).max_column + 1
+
+                    LogMessage(level=LOG_DEBUG, module="Excel",
+                               msg="Column name '{}' not found ,add it at (1,{}....)".format(column_name, index))
+                    self.cell_handler(sheet_name, row=1, column=index).value = column_name
+
+                    return index
+                else:
+                    LogMessage(level=LOG_DEBUG, module="Excel",
+                               msg="Not found '{}' in '{}'".format(column_name, col_names))
+                    return 0
+        # sheet 为空
+        else:
+            if write_new_col:
+                LogMessage(level=LOG_DEBUG, module="Excel",
+                           msg="Empty Sheet...,add  '{}'  at (1,1)....".format(column_name))
+                self.cell_handler(sheet_name, row=1, column=1).value = column_name
+                self.save()
+                self.wb.close()
+                return 1
+            else:
+                LogMessage(level=LOG_DEBUG, module="Excel",
+                           msg="Not found '{}' in '{}'".format(column_name, col_names))
+                return 0
 
     @sheet_exist
-    def merge_cell(self, env_name, start, end, cell_name, cell_name2, interval, index) -> None:
-        for num in range(index):
-            self.cell_merge(env_name, str(start), str(end), cell_name, cell_name2)
-            start += interval
-            end += interval
-        self.save()
-        self.wb.close()
+    def columns_name_get(self, sheet_name) -> dict:
+        """
+        将sheet第一列作为列名 显示所有的列名称对应的列数
+        :param sheet_name: 表明
+        :return: 所有列{名称：列标}
+        """
+        sheet = self.sheet_handler(sheet_name)
+        try:
+            columns_names = [cell.value for cell in list(sheet.rows)[0]]
+            # {'id': 1, 'dialog_id': 2, 'instance_id': 3, 'dialog_no': 4, 'action_id': 5, 'item_list': 6}
+            return {k: v + 1 for v, k in enumerate(columns_names)}
+        except IndexError:
+            LogMessage(level=LOG_ERROR, module="Excel", msg="Empty Sheet.....")
+            return dict()
+
+    @sheet_exist
+    def records_get(self, sheet_name, row_start=None, row_end=None, column_start=None, column_end=None,
+                    by="row") -> list:
+        """
+        起始行/列固定为第一行 获取指定范围所有记录 返回dict-list的数据结构
+        :param sheet_name:
+        :param row_start:
+        :param row_end:
+        :param column_start:
+        :param column_end:
+        :param by:
+        :return:
+        """
+        row_start = 1 if by == "row" else row_start
+        column_start = 1 if by == "column" else column_start
+
+        _iter = self.query(sheet_name, row_start=row_start, row_end=row_end, column_start=column_start,
+                           column_end=column_end, by=by)
+
+        records = [record for record in _iter]
+        "将第一个record为dict 的key"
+        keys = records.pop(0)
+        return [dict(zip(keys, values)) for values in records]
