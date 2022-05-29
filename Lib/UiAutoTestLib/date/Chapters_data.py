@@ -5,11 +5,12 @@ import yaml
 from numpy.core.defchararray import capitalize
 
 from Lib.UiAutoTestLib.common.COM_path import path_BASE_DIR, path_LOG_DIR
-from common.my_log import mylog
 from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR, LOG_INFO, LOG_DEBUG
 from date.Chapters_API import APiClass
 import sqlite3
+
 FILE_NAME = os.path.split(__file__)[-1]
+
 
 # TODO:书架需要考虑新手手书架情况
 class UserData(APiClass):
@@ -320,7 +321,7 @@ class UserData(APiClass):
         self.w_yaml_dialogue_result()
         self.w_yaml_select_result()
         self.w_yaml_fashion()
-        mylog.info("完成文件清空")
+        LogMessage(module=FILE_NAME, level=LOG_INFO, msg="完成文件清空")
         print("完成文件清空")
 
     def download_bookresource(self, bookid):
