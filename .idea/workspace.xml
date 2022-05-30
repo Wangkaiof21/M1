@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Error.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_analysis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_findobject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_findobject.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,11 +140,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jun/Desktop/test_file/M1&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.run_gui">
     <configuration name="2022_haps_reset" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="M1" />

@@ -10,11 +10,16 @@ from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 from common import COM_utilities
 from common.COM_Error import ResourceError
 from common.COM_utilities import clock
-from common.my_log import mylog
-from common.COM_devices import CommonDevices
-from common.COM_path import *
+from Lib.UiAutoTestLib.common.COM_devices import CommonDevices
+from Lib.UiAutoTestLib.common.COM_path import *
 from date.Chapters_data import MyData
 from poco.drivers.unity3d import UnityPoco
+
+from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR, LOG_INFO, LOG_DEBUG
+from Lib.CommonLib.CoreLib.msg_center import MsgCenter
+
+FILE_NAME = os.path.split(__file__)[-1]
+MsgCenter(logger_name=FILE_NAME, level=LOG_DEBUG)
 
 
 class FindObject(CommonDevices):
@@ -49,14 +54,14 @@ class FindObject(CommonDevices):
             NFlist = mystr.split(",")
             MyData.DeviceData_dir["offset"] = 1 - (int(NFlist[3]) - int(NFlist[1])) / int(NFlist[3])
             print(MyData.DeviceData_dir["offset"])
-            mylog.info("完成【{}】刘海屏特殊渲染处理".format(ADBdevice))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"完成【{ADBdevice}】刘海屏特殊渲染处理")
             print("完成【{}】刘海屏特殊渲染处理".format(ADBdevice))
 
     def initialized(self):
         """基于poco之后的初始化"""
         MyData.DeviceData_dir["poco"] = UnityPoco()
         self.set_offset()
-        mylog.info("完成Unity元素定位方法初始化【{}】".format(MyData.DeviceData_dir["poco"]))
+        LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"完成Unity元素定位方法初始化【{MyData.DeviceData_dir['poco']}】")
         print("完成Unity元素定位方法初始化【{}】".format(MyData.DeviceData_dir["poco"]))
 
     def __new__(cls):
@@ -73,7 +78,7 @@ class FindObject(CommonDevices):
         if self.poco(findName).wait(waitTime).exists():
             print("发现{0}".format(description))
             sleep(sleeptime)
-            mylog.info("等待元素-【{}】--加载成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"等待元素-【{description}】--加载成功")
             return True
         log(PocoNoSuchNodeException("等待-【{}】-元素超时".format(description)), desc="等待元素超时", snapshot=True)
         raise PocoNoSuchNodeException("等待-【{}】-元素超时".format(description))
@@ -84,15 +89,15 @@ class FindObject(CommonDevices):
         print("正在寻找{0}".format(description))
         if self.poco(ClickName).wait(waitTime).exists():
             print("发现{0}元素，并点击".format(description))
-            mylog.info("查找点击-【{}】--元素成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"查找点击-【{description}】--元素成功")
             self.poco(ClickName).click()
-            mylog.info("点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"点击元素-【{description}】--成功")
             print("点击元素-【{}】--成功".format(description))
             sleep(sleeptime)
             return True
         else:
             print("查找{0}失败".format(description))
-            mylog.error("查找点击元素-【{}】--失败".format(findName))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"查找点击元素-【{findName}】--失败")
         log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc="点击元素失败", snapshot=True)
         raise PocoNoSuchNodeException("点击-【{}】-元素失败".format(description))
 
@@ -101,34 +106,34 @@ class FindObject(CommonDevices):
         print("正在寻找{0}".format(description))
         try:
             self.poco(parentName).offspring(offspringName).wait(waitTime).click()
-            mylog.info("点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"点击元素-【{description}】--成功")
             print("点击元素-【{}】--成功".format(description))
             sleep(sleeptime)
             return True
-        except:
-            log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc="点击元素失败", snapshot=True)
+        except Exception as e:
+            log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc=f"点击元素失败{e}", snapshot=True)
             return False
 
-    def trySetText(self, InputField, set_text):
+    def trySetText(self, input_field, set_text):
         """输入Text"""
         time = 2
         while time > 0:
             time -= 1
             try:
-                self.poco(InputField).set_text(str(set_text))
+                self.poco(input_field).set_text(str(set_text))
                 return True
-            except:
-                log(Exception("输入-【{}】-或失败".format(str(set_text))), desc="输入失败", snapshot=True)
+            except Exception as e:
+                LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"输入-【{e}】-或失败")
 
     def find_childobject(self, findPoco: poco, description="", waitTime=1, tryTime=3, sleeptime=0):
         """用于关联父级才能找到的元素"""
         waitTime = waitTime + float(MyData.EnvData_dir["sleepLevel"])
         if findPoco.wait(waitTime).exists():
             print("发现{0}".format(description))
-            mylog.info("查找点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"查找点击元素-【{description}】--成功")
             return True
         else:
-            mylog.error("查找-【{}】-元素失败".format(description))
+            LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
         log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc="点击元素失败", snapshot=True)
         raise PocoNoSuchNodeException("点击-【{}】-元素失败".format(description))
 
@@ -137,47 +142,43 @@ class FindObject(CommonDevices):
         """用于关联父级才能点击到的元素"""
         # waitTime = waitTime + float(MyData.EnvData_dir["sleepLevel"])
         if ClickPoco.wait(waitTime).exists():
-            print("发现{0}".format(description))
-            # mylog.info("查找点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"发现{description}")
             if clickPos is None:
                 ClickPoco.click()
             else:
                 ClickPoco.click(clickPos)
             sleep(sleeptime)
-            mylog.info("点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"点击元素-【{description}】--成功")
             return True
         else:
-            mylog.error("查找-【{}】-元素失败".format(description))
-        log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc="点击元素失败", snapshot=True)
-        raise PocoNoSuchNodeException("点击-【{}】-元素失败".format(description))
+            LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
+        LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
+        raise LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
 
     def click_object(self, clickName, waitTime=1, description="", sleeptime=0):
         """直接点击，不存在会报错"""
         waitTime = waitTime + float(MyData.EnvData_dir["sleepLevel"])
         try:
             self.poco(clickName).wait(waitTime).click()
-            mylog.info("点击元素-【{}】--成功".format(description))
-            print("点击元素-【{}】--成功".format(description))
+            LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"点击元素-【{description}】--成功")
             sleep(sleeptime)
             return True
         except Exception as e:
-            mylog.error("点击【{0}】出现未知错误，{1}".format(description, e))
+            LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"点击【{description}】出现未知错误，{e}")
             return False
-        log(PocoNoSuchNodeException("点击-【{}】-元素失败".format(description)), desc="点击元素失败", snapshot=True)
-        raise PocoNoSuchNodeException("点击-【{}】-元素失败".format(description))
+        LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
+        raise LogMessage(level=LOG_ERROR, module=FILE_NAME, msg=f"查找-【{description}】-元素失败")
 
     def findchildobject_try(self, findPoco: poco, description="", waitTime=0.2, tryTime=1, sleeptime=0):
         """尝试寻找，不一定存在"""
         while (tryTime > 0):
             tryTime = tryTime - 1
             try:
-                gameobject = findPoco
-                print("尝试寻找{0}".format(description))
-                mylog.info("尝试寻找-【{}】--".format(description))
-                if gameobject.wait(waitTime).exists():
-                    print("发现{0}".format(description))
+                game_object = findPoco
+                LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"尝试寻找-【{description}】--")
+                if game_object.exists():
                     sleep(sleeptime)
-                    mylog.info("尝试寻找-【{}】-元素成功".format(description))
+                    LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"尝试寻找-【{description}】-元素成功")
                     return True
             except:
                 return False
@@ -187,13 +188,12 @@ class FindObject(CommonDevices):
         while (tryTime > 0):
             tryTime = tryTime - 1
             try:
-                print("尝试寻找{0}".format(description))
-                mylog.info("尝试寻找-【{}】--".format(description))
+                LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"尝试寻找-【{description}】--")
                 if self.poco(findName).wait(waitTime).exists():
                     print("发现{0}".format(description))
                     sleep(sleeptime)
                     self.Popuplist.append(description)
-                    mylog.info("尝试寻找-【{}】-元素成功".format(description))
+                    LogMessage(level=LOG_INFO, module=FILE_NAME, msg=f"尝试寻找-【{description}】-元素成功")
                     return True
             except:
                 return False
@@ -618,8 +618,8 @@ class FindObject(CommonDevices):
         try:
             list = self.poco(nameMatches='.*Btn.*|Button')
             for i in list:
-                name=i.get_name()
-                if name != "Btn" and name !="MaskBtn":
+                name = i.get_name()
+                if name != "Btn" and name != "MaskBtn":
                     list1.append(i)
             list1.sort(key=lambda x: x.attr('_ilayer'), reverse=False)
             print(list1[len(list1) - 1].get_name())

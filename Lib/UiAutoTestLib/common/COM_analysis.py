@@ -3,28 +3,29 @@ import re
 import types
 from Lib.UiAutoTestLib.common import COM_utilities
 import importlib
-from Lib.UiAutoTestLib.common.COM_path import path_BASE_DIR, path_LOG_DIR
+from Lib.UiAutoTestLib.common.COM_path import path_BASE_DIR, path_LOG_DIR,path_YAML_FILES
+import os
 
-class MyAnalysis():
+
+class MyAnalysis:
     """解析用例"""
     function_regexp = re.compile(r"^\$\{(\w+)\(([\$\w =,]*)\)\}$")
-    stepdata_list = []
-    Runlist = []
+    step_data_list = []
+    run_list = []
     Case_info = {}
     index = 0
     Case_dir = {}
-    Runlist_dir = {}
-    popup_list=[]
-    path=None
+    run_list_dir = {}
+    popup_list = []
+    path = None
     # path = os.path.join(path_YAML_FILES, "yamlCase/casedatas.yml")
-    Popuopath = os.path.join(path_YAML_FILES, "yamlGame/popup.yml")
-
+    poco_path = os.path.join(path_YAML_FILES, "yamlGame/popup.yml")
 
     def __init__(self):
         self.file_name()
         self.yaml_data(self.path)
         self.getrunlist()
-        self.yaml_data_popup(self.Popuopath)
+        self.yaml_data_popup(self.poco_path)
 
     def file_name(self):
         """解析当前路径的目录"""
@@ -33,9 +34,9 @@ class MyAnalysis():
             # print(root) #当前目录路径
             # print(dirs) #当前路径下所有子目录
             # print(files) #当前路径下所有非目录子文件
-            filesName=files[0].split(".yml")[0]
-            self.Case_info["casename"]=filesName
-            self.path=os.path.join(path, files[0])
+            files_names = files[0].split(".yml")[0]
+            self.Case_info["casename"] = files_names
+            self.path = os.path.join(path, files[0])
 
     # def is_functon(self, content):
     #     matched = self.function_regexp.match(content)
@@ -105,16 +106,17 @@ class MyAnalysis():
                 self.stepdata_list.append(function_meta)
             self.Case_dir[i] = self.stepdata_list
             self.stepdata_list = []
-    def yaml_data_popup(self, Popuopath):
+
+    def yaml_data_popup(self, fp):
         """解析yamlcase数据"""
         function_meta = {
             "popup_name": None,
             "element": [],
             "kwargs": {}
         }
-        yamldatalist = COM_utilities.read_yaml(Popuopath)
-        for i in range(0, len(yamldatalist)):
-            self.index = i
+        yamldatalist = COM_utilities.read_yaml(fp)
+        for line in range(0, len(yamldatalist)):
+            self.index = line
             caselist = yamldatalist[i][i]["step"]
             for k in range(0, len(caselist)):
                 thefunction_meta = self.parse_function(caselist[k])
@@ -122,7 +124,7 @@ class MyAnalysis():
                 function_meta["element"] = thefunction_meta['args']
                 function_meta["kwargs"] = thefunction_meta['kwargs']
                 self.popup_list.append(thefunction_meta)
-            MyData.popup_dir[i] = self.popup_list
+            MyData.popup_dir[line] = self.popup_list
             self.popup_list = []
 
     def getrunlist(self):
