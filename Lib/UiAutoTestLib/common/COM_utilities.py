@@ -6,10 +6,10 @@ import argparse
 from airtest.aircv import aircv
 from airtest.core.api import *
 
-from common.COM_devices import CommonDevices
-from common.COM_nude import Nude
-from common.COM_path import *
-from common.COM_path import *
+from Lib.UiAutoTestLib.common.COM_devices import CommonDevices
+from Lib.UiAutoTestLib.common.COM_nude import Nude
+from Lib.UiAutoTestLib.common.COM_path import *
+from Lib.UiAutoTestLib.common.COM_path import *
 import yaml
 import types
 from airtest.core.android.recorder import *
@@ -17,7 +17,8 @@ from airtest.core.android.recorder import *
 # from common.COM_data import MyData
 spendtime = None
 
-def mysnapshot(loc_desc,IMG_parameter,quality=None,max_size=None):
+
+def mysnapshot(loc_desc, IMG_parameter, quality=None, max_size=None):
     # 0, 160, 1067, 551
     filename = loc_desc + ".png"
     file_path = os.path.join(path_RESOURCE_IMAGE, filename)
@@ -38,9 +39,7 @@ def mysnapshot(loc_desc,IMG_parameter,quality=None,max_size=None):
     # pos = tempalte.match_in(screen)
 
 
-
-
-def myscreenshot(file_path,loc_desc):
+def myscreenshot(file_path, loc_desc):
     # date_decs = time.strftime("%Y-%m-%d_%H_%M_%S")
     filename = str(loc_desc) + ".png"
     file_path = os.path.join(file_path, filename)
@@ -48,6 +47,7 @@ def myscreenshot(file_path,loc_desc):
         snapshot(filename=file_path, msg=loc_desc)
     except Exception as e:
         print(e)
+
 
 def screenshot(loc_desc):
     date_decs = time.strftime("%Y-%m-%d_%H_%M_%S")
@@ -64,6 +64,7 @@ def screenshot(loc_desc):
     except Exception as e:
         print(e)
         raise e
+
 
 def PosTurn(pos):  # 坐标转化
     width = G.DEVICE.display_info['width']
@@ -115,7 +116,9 @@ def timethis(func):
         end = time.time()
         print(end - start)
         return r
+
     return wrapper
+
 
 def time_difference(time_start):
     """计算时间差"""
@@ -123,26 +126,29 @@ def time_difference(time_start):
     time_c = time_end - time_start  # 运行所花时间
     return time_c
 
-def nude_test(fname,scale):
+
+def nude_test(fname, scale):
     """裸体检测 False没有 True有裸体"""
     # fname='D:/testimage/1.png'
     # fname = '5.png'
     if os.path.isfile(fname):
-        n = Nude(fname,scale)
+        n = Nude(fname, scale)
         n.parse()
         print(n.result)
         print(n.inspect())
-        print("hsv_classifier_sum",n.hsv_classifier_sum)
-        print("ycbcr_classifier_sum",n.ycbcr_classifier_sum)
-        print("rgb_classifier_sum",n.rgb_classifier_sum)
+        print("hsv_classifier_sum", n.hsv_classifier_sum)
+        print("ycbcr_classifier_sum", n.ycbcr_classifier_sum)
+        print("rgb_classifier_sum", n.rgb_classifier_sum)
         n.showSkinRegions()
     else:
         print(fname, "is not a file")
     return n.result
+
+
 def testnude_test():
     """裸体检测测试"""
-    CommonDevices1=CommonDevices()
-    CommonDevices1=CommonDevices()
+    CommonDevices1 = CommonDevices()
+    CommonDevices1 = CommonDevices()
 
     width = G.DEVICE.display_info['width']
     height = G.DEVICE.display_info['height']
@@ -158,18 +164,18 @@ def testnude_test():
     # starw=int(width * 0.25)
     # endh=int(height * 0.55)
     # endw=int(width*0.512)
-    #角色
-    starh=int(height * 0.1)
-    starw=int(width * 0.3)
-    endh=int(height * 0.7)
-    endw=int(width*0.75)
-    IMG_parameter=(starw,starh,endw,endh)
-    mysnapshot("lipe",IMG_parameter)
+    # 角色
+    starh = int(height * 0.1)
+    starw = int(width * 0.3)
+    endh = int(height * 0.7)
+    endw = int(width * 0.75)
+    IMG_parameter = (starw, starh, endw, endh)
+    mysnapshot("lipe", IMG_parameter)
     # myscreenshot("role")
     filename = "lipe" + ".png"
     # filename = "4" + ".png"
-    fname=os.path.join(path_RESOURCE_IMAGE,filename)
+    fname = os.path.join(path_RESOURCE_IMAGE, filename)
     # print(filename)
     sleep(3)
-    nude_test(fname,60)
+    nude_test(fname, 60)
 # snapshot(filename=filename, msg=filename)
