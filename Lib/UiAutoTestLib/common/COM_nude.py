@@ -3,21 +3,20 @@
 
 import sys
 import os
-import _io
 from collections import namedtuple
 from PIL import Image
 
-from common.COM_path import path_RESOURCE_IMAGE
+from Lib.UiAutoTestLib.common.COM_path import path_RESOURCE_IMAGE
 
 
 class Nude(object):
     Skin = namedtuple("Skin", "id skin region x y")
 
-    def __init__(self, path_or_image,proportion):
-        self.rgb_classifier_sum=0
-        self.hsv_classifier_sum=0
-        self.ycbcr_classifier_sum=0
-        self.proportion=proportion
+    def __init__(self, path_or_image, proportion):
+        self.rgb_classifier_sum = 0
+        self.hsv_classifier_sum = 0
+        self.ycbcr_classifier_sum = 0
+        self.proportion = proportion
         # 若 path_or_image 为 Image.Image 类型的实例，直接赋值
         if isinstance(path_or_image, Image.Image):
             self.image = path_or_image
@@ -256,7 +255,7 @@ class Nude(object):
     # 分析区域
     def _analyse_regions(self):
         # 如果皮肤区域小于 3 个，不是色情
-        print("皮肤区域数",len(self.skin_regions))
+        print("皮肤区域数", len(self.skin_regions))
         # if len(self.skin_regions) < 3:
         if len(self.skin_regions) < 1:
             self.message = "Less than 3 skin regions ({_skin_regions_size})".format(
@@ -272,7 +271,7 @@ class Nude(object):
         total_skin = float(sum([len(skin_region) for skin_region in self.skin_regions]))
 
         # 如果皮肤区域与整个图像的比值小于 15%，那么不是色情图片
-        print("当前配置的比例",self.proportion)
+        print("当前配置的比例", self.proportion)
         print("皮肤区域与整个图像的比值", total_skin / self.total_pixels * 100)
         if total_skin / self.total_pixels * 100 < self.proportion:
             self.message = "Total skin percentage lower than 15 ({:.2f})".format(total_skin / self.total_pixels * 100)
@@ -280,9 +279,9 @@ class Nude(object):
             return self.result
 
         # 如果最大皮肤区域小于总皮肤面积的 45%，不是色情图片
-        print("最大皮肤区域",len(self.skin_regions[0]))
-        print("总皮肤面积",total_skin)
-        print("最大皮肤区域和总皮肤面积比",len(self.skin_regions[0]) / total_skin * 100)
+        print("最大皮肤区域", len(self.skin_regions[0]))
+        print("总皮肤面积", total_skin)
+        print("最大皮肤区域和总皮肤面积比", len(self.skin_regions[0]) / total_skin * 100)
         if len(self.skin_regions[0]) / total_skin * 100 < 45:
             self.message = "The biggest region contains less than 45 ({:.2f})".format(
                 len(self.skin_regions[0]) / total_skin * 100)
@@ -290,8 +289,8 @@ class Nude(object):
             return self.result
 
         # 皮肤区域数量超过 60个，不是色情图片
-        print("皮肤区域数量",len(self.skin_regions))
-        if len(self.skin_regions) > 90:  #60
+        print("皮肤区域数量", len(self.skin_regions))
+        if len(self.skin_regions) > 90:  # 60
             self.message = "More than 60 skin regions ({})".format(len(self.skin_regions))
             self.result = False
             return self.result
@@ -335,15 +334,16 @@ class Nude(object):
         y, cb, cr = self._to_ycbcr(r, g, b)
         ycbcr_classifier = 97.5 <= cb <= 142.5 and 134 <= cr <= 176
         if rgb_classifier:
-            self.rgb_classifier_sum+=1
+            self.rgb_classifier_sum += 1
         if hsv_classifier:
-            self.hsv_classifier_sum+=1
+            self.hsv_classifier_sum += 1
         if ycbcr_classifier:
-            self.ycbcr_classifier_sum+=1
+            self.ycbcr_classifier_sum += 1
         # 效果不是很好，还需改公式
         # return rgb_classifier or norm_rgb_classifier or hsv_classifier or ycbcr_classifier
         return ycbcr_classifier
         # return rgb_classifier
+
     def _to_normalized(self, r, g, b):
         if r == 0:
             r = 0.0001
@@ -425,7 +425,6 @@ class Nude(object):
         # 保存图片
         simage.save('{}{}_{}{}'.format(fileDirectory, fileName, 'Nude' if self.result else 'Normal', fileExtName))
 
-
 # if __name__ == "__main__":
 #     filename = "lipe" + ".png"
 #     fname=os.path.join(path_RESOURCE_IMAGE,filename)
@@ -449,42 +448,42 @@ class Nude(object):
 #     else:
 #         print(fname, "is not a file")
 
-    # files="D:/testimage"
-    # # print("files")
-    # # for root, dirs, files in os.walk(files, topdown=False):
-    # #     print(root)  # 当前目录路径
-    # #     print(dirs)  # 当前目录下所有子目录
-    # #     print(files)  # 当前路径下所有非目录子文件
-    #
-    # parser = argparse.ArgumentParser(description='Detect nudity in images.')
-    # parser.add_argument('files', metavar='image', nargs='+',
-    #                     help='Images you wish to test')
-    # parser.add_argument('-r', '--resize', action='store_true',
-    #                     help='Reduce image size to increase speed of scanning')
-    # parser.add_argument('-v', '--visualization', action='store_true',
-    #                     help='Generating areas of skin image')
-    #
-    # args = parser.parse_args()
-    #
-    # # for fname in args.files:
-    # #     if os.path.isfile(fname):
-    # #         n = Nude(fname)
-    # #         if args.resize:
-    # #             n.resize(maxheight=800, maxwidth=600)
-    # #         n.parse()
-    # #         if args.visualization:
-    # #             n.showSkinRegions()
-    # #         print(n.result, n.inspect())
-    # #     else:
-    # #         print(fname, "is not a file")
-    # fname='D:/testimage'
-    # if os.path.isfile(fname):
-    #     n = Nude(fname)
-    #     if args.resize:
-    #         n.resize(maxheight=800, maxwidth=600)
-    #     n.parse()
-    #     if args.visualization:
-    #         n.showSkinRegions()
-    #     print(n.result, n.inspect())
-    # else:
-    #     print(fname, "is not a file")
+# files="D:/testimage"
+# # print("files")
+# # for root, dirs, files in os.walk(files, topdown=False):
+# #     print(root)  # 当前目录路径
+# #     print(dirs)  # 当前目录下所有子目录
+# #     print(files)  # 当前路径下所有非目录子文件
+#
+# parser = argparse.ArgumentParser(description='Detect nudity in images.')
+# parser.add_argument('files', metavar='image', nargs='+',
+#                     help='Images you wish to test')
+# parser.add_argument('-r', '--resize', action='store_true',
+#                     help='Reduce image size to increase speed of scanning')
+# parser.add_argument('-v', '--visualization', action='store_true',
+#                     help='Generating areas of skin image')
+#
+# args = parser.parse_args()
+#
+# # for fname in args.files:
+# #     if os.path.isfile(fname):
+# #         n = Nude(fname)
+# #         if args.resize:
+# #             n.resize(maxheight=800, maxwidth=600)
+# #         n.parse()
+# #         if args.visualization:
+# #             n.showSkinRegions()
+# #         print(n.result, n.inspect())
+# #     else:
+# #         print(fname, "is not a file")
+# fname='D:/testimage'
+# if os.path.isfile(fname):
+#     n = Nude(fname)
+#     if args.resize:
+#         n.resize(maxheight=800, maxwidth=600)
+#     n.parse()
+#     if args.visualization:
+#         n.showSkinRegions()
+#     print(n.result, n.inspect())
+# else:
+#     print(fname, "is not a file")
