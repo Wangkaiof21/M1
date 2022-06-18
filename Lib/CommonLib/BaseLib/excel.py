@@ -32,7 +32,7 @@ import openpyxl
 from openpyxl.cell.cell import Cell
 from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
-from commonlib.baselib.log_message import LogMessage, LOG_ERROR, LOG_DEBUG, LOG_INFO
+from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR, LOG_DEBUG, LOG_INFO
 
 
 # from commonlib.baselib.msg_center import MsgCenter

@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_findobject.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_findobject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
