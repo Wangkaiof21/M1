@@ -1,5 +1,7 @@
 import requests
 import json
+from Lib.CommonLib.log_message import LogMessage, LOG_INFO
+
 
 def send_ding(self, text, title, messageUrl):
     __headers = {'Content-Type': 'application/json;charset=utf-8'}
@@ -15,4 +17,5 @@ def send_ding(self, text, title, messageUrl):
     }
     json_text = json.dumps(json_text).encode(encoding='UTF8')
     r = requests.post(self.url, json_text, headers=self.__headers).content
+    LogMessage(level=LOG_INFO, module="send_ding", msg=f"msg => {r}")
     return r

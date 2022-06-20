@@ -5,12 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/BaseLib/excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/M1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/M1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Ding.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Ding.py" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="840">
+              <caret line="40" selection-start-line="40" selection-end-line="40" />
+              <folding>
+                <element signature="e#203#212#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_analysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Ding.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="27" lean-forward="true" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -73,6 +116,7 @@
         <option value="$PROJECT_DIR$/gui_install_tool_V13.1.py" />
         <option value="$PROJECT_DIR$/c3iot_deploy.json" />
         <option value="$PROJECT_DIR$/Shell/send_qq_msg.py" />
+        <option value="$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Ding.py" />
       </list>
     </option>
   </component>
@@ -104,23 +148,31 @@
             <path>
               <item name="M1" type="b2602c69:ProjectViewProjectNode" />
               <item name="M1" type="462c0819:PsiDirectoryNode" />
-              <item name=".pytest_cache" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="M1" type="462c0819:PsiDirectoryNode" />
-              <item name=".pytest_cache" type="462c0819:PsiDirectoryNode" />
-              <item name="v" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="M1" type="462c0819:PsiDirectoryNode" />
               <item name="GlobalConfig" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="M1" type="b2602c69:ProjectViewProjectNode" />
               <item name="M1" type="462c0819:PsiDirectoryNode" />
               <item name="Lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="CommonLib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="UiAutoTestLib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="M1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="M1" type="462c0819:PsiDirectoryNode" />
+              <item name="Lib" type="462c0819:PsiDirectoryNode" />
+              <item name="UiAutoTestLib" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="M1" type="b2602c69:ProjectViewProjectNode" />
@@ -137,14 +189,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jun/Desktop/test_file/M1&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager" selected="Python.run_gui">
     <configuration name="2022_haps_reset" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="M1" />
@@ -268,7 +327,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -326,34 +385,14 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../pron/PornhubSpider/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2491">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#48#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/terminal/telnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="90" column="86" selection-start-line="90" selection-start-column="85" selection-end-line="90" selection-end-column="86" />
-          <folding>
-            <element signature="e#198#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../py37/Lib/site-packages/openpyxl/worksheet/worksheet.py">
+    <entry file="file://C:/py37/Lib/site-packages/openpyxl/worksheet/worksheet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6888">
           <caret line="377" column="8" selection-start-line="377" selection-start-column="8" selection-end-line="377" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../py37/Lib/site-packages/matplotlib/backends/backend_nbagg.py">
+    <entry file="file://C:/py37/Lib/site-packages/matplotlib/backends/backend_nbagg.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3717">
           <caret line="183" column="8" selection-start-line="183" selection-start-column="8" selection-end-line="183" selection-end-column="8" />
@@ -397,7 +436,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../py37/Lib/site-packages/colorama/ansi.py">
+    <entry file="file://C:/py37/Lib/site-packages/colorama/ansi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1239">
           <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
@@ -668,16 +707,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-          <folding>
-            <element signature="e#203#212#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CoreLib/msg_center.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1470">
@@ -702,6 +731,35 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/2022_haps_reset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+          <folding>
+            <element signature="e#203#212#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lib/UiAutoTestLib/common/COM_Ding.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="27" lean-forward="true" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
