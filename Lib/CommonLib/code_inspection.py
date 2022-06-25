@@ -105,3 +105,41 @@ def get_data(path):
         read_data = f.read()
         return read_data
 
+
+def add_ignore_file(file):
+    """
+    将文件添加到忽略列表
+    :param file: 文件名
+    :return:
+    """
+    if isinstance(file, str):
+        file_name = os.path.basename(file)
+        ignore_file_list.append(file_name)
+    elif isinstance(file, (list, tuple)):
+        for file_name in list(file):
+            ignore_file_list.append(file_name)
+
+
+def cmd_order(code_path, source, ignore):
+    """
+    命令行字符串构造
+    :param code_path:检查文件路径
+    :param source:是否开启详细检查信息开关
+    :param ignore:指定忽略的错误代码编号，可传入字符串或可迭代数据
+    :return:执行命令行
+    """
+    code_tool = CODE_TOOL
+    max_line_length = MAX_LINE_LENGTH
+    cmd = f"{code_tool} {code_path}"
+    # 更详细的输出信息警告
+    if source:
+        cmd += " --show-source"
+    if ignore:
+        cmd += " --extend-ignore="
+        if isinstance(ignore, str):
+            cmd += ignore
+        elif isinstance(ignore, Iterable):
+            cmd += ".".join(ignore)
+    if max_line_length:
+        cmd += f" --max-line-length {max_line_length}"
+    return cmd
