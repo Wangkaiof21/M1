@@ -143,3 +143,6 @@ def cmd_order(code_path, source, ignore):
     if max_line_length:
         cmd += f" --max-line-length {max_line_length}"
     return cmd
+
+
+def inspection(code_path=)

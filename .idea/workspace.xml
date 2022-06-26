@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/Lib/CommonLib/BaseLib/matplot.py" line="31" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/code_inspection.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/code_inspection.py" afterDir="false" />
-    </list>
+    <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lib/CommonLib/code_inspection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="133" column="16" lean-forward="true" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
+            <state relative-caret-position="2438">
+              <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
               <folding>
                 <element signature="e#179#192#0" expanded="true" />
               </folding>
@@ -750,8 +748,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/code_inspection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="133" column="16" lean-forward="true" selection-start-line="133" selection-start-column="16" selection-end-line="133" selection-end-column="16" />
+        <state relative-caret-position="2438">
+          <caret line="145" lean-forward="true" selection-start-line="145" selection-end-line="145" />
           <folding>
             <element signature="e#179#192#0" expanded="true" />
           </folding>
