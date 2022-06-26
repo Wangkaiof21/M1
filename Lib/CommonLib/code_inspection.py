@@ -145,4 +145,44 @@ def cmd_order(code_path, source, ignore):
     return cmd
 
 
-def inspection(code_path=)
+def inspection(code_path=None, source=False, ignore=None, ignore_func=None)
+    """
+    文件代码检查
+    :param code_path: 检查的文件或者文件夹路径
+    :param source: 是否开启详细检查信息开关
+    :param ignore: 指定忽略的错误代码编号，可传入字符串或可迭代数据
+    :param ignore_func: 指定忽略的方法名 仅忽略该方法的超行信息
+    :return: 
+    """
+    if not code_path:
+        code_path = os.path.abspath(os.path.dirname(__file__)).split("Lib")[0]  # workespace使用默认的使用以下的code_path
+    try:
+        if not os.path.exists(code_path):
+            print("Path doesn't exist.")
+    except Exception as e:
+        raise e
+    cmd = cmd_order(code_path, source, ignore)
+    count_data = run_count_lines(code_path)
+    m_code_string = disposal_data(count_data, ignore_func)
+    ignore_code(ignore)
+    check_info = os.popen(cmd).read() + m_code_string
+    if check_info:
+        for check_string in check_info.splitlines():
+            for code_key, code_value in code_dict.items():
+                for code_key in check_string:
+                    code_dict[code_key] += 1
+        print(check_info, end="")
+        for key, value in code_dict.items():
+            if code_dict[key] > 0:
+                print(f"[{code_dict[key]}]\t{key} - {desc_dict[key]}")
+        print("\n Ignore Code in path :")
+        ignore_data = set()
+        if ignore:
+            if isinstance(ignore, str):
+                ignore_data |= {ignore}
+            elif isinstance(ignore, Iterable):
+                ignore_data |= set(ignore)
+        for ignore_error in ignore_data:
+            print(f"{ignore_error} - {desc_dict[ignore_error]}")
+    else:
+        print(Fore.GREEN + "The code examined conforms to the coding specification this time." + Style.RESET_ALL)
