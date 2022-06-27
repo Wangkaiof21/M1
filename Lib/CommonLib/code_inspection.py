@@ -249,3 +249,32 @@ def M_code_str(filter_list, code):
         m_string = f"{file_abspath}:{location}:1: {code} line too much ({lines} > {m_max_dict[code]} rows)"
         m_string_list.append(m_string)
     return '\n'.join(m_string_list)
+
+
+def disposal_data(data, ignore_func):
+    """
+    将结果进行统计 以及处理检查结果信息处理同flake8检查结果
+    :param data:函数代码行数统计数据集
+    :param ignore_func:指定忽略方法名 仅忽略该方法的超行信息
+    :return:超行数据信息 总计的统计数据（总文件数 总的类个数 总方法数）
+    """
+    over_lines_dict, number_dict = filter(data, ignore_func)
+    m101 = M_code_str(over_lines_dict["over_lines_func"], "M101")
+    m102 = M_code_str(over_lines_dict["over_lines_class"], "M102")
+    m103 = M_code_str(over_lines_dict["over_lines_file"], "M103")
+    m_string = "\n".join([m101, m102, m103])
+    total_info = f"\nThis time count data:\n - count files number\t: {number_dict['file_number']}" \
+        f"\n - count class number \t: {number_dict['class_number']}" \
+        f"\n - count func number \t: {number_dict['func_number']}"
+    return m_string + total_info
+
+
+def count(data, _count_type, line_number=1):
+    """
+    统计类的代码行数
+    :param data: 打开读取到的文件数据
+    :param _count_type: 开头类型 是class或def
+    :param line_number: 起始行行号
+    :return: 文件的类或者方法行数统计列表,文件总行数
+    """
+    pass
