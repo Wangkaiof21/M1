@@ -169,7 +169,7 @@ def inspection(code_path=None, source=False, ignore=None, ignore_func=None)
     if check_info:
         for check_string in check_info.splitlines():
             for code_key, code_value in code_dict.items():
-                for code_key in check_string:
+                if code_key in check_string:
                     code_dict[code_key] += 1
         print(check_info, end="")
         for key, value in code_dict.items():
@@ -186,3 +186,66 @@ def inspection(code_path=None, source=False, ignore=None, ignore_func=None)
             print(f"{ignore_error} - {desc_dict[ignore_error]}")
     else:
         print(Fore.GREEN + "The code examined conforms to the coding specification this time." + Style.RESET_ALL)
+
+
+def filtration(data, ignore_func):
+    """
+    函数代码行数超行过滤检查及其统计
+    :param data:函数代码统计数据集
+    :param ignore_func:
+    :return:函数代码行过多函数记录
+    """
+    over_lines_file = list()
+    over_lines_class = list()
+    over_lines_func = list()
+    file_number = len(data)
+    class_number = 0
+    func_number = 0
+    ignore_func_set = set()
+    if ignore_func:
+        if isinstance(ignore_func, str):
+            ignore_func_set |= {ignore_func}
+        elif isinstance(ignore_func, Iterable):
+            ignore_func_set |= set(ignore_func)
+
+    for file in data:
+        if file["file_lines"] > MAX_MODULE_LINES:
+            over_lines_file.append((file["file_name"], 0, file["file_lines"]))
+
+        for cls in file["file_value"]:
+            class_number += 1
+            if cls["class_lines"] > MAX_CLASS_LINES:
+                over_lines_class.append((file["file_name"], cls["class_location"], cls["class_lines"]))
+            for func in cls["class_value"]:
+                func_number += 1
+                if (func["def_lines"] > MAX_FUNCTION_LINES) and (func["def_name"] not in ignore_func_set):
+                    over_lines_func.append((file["file_name"], func["def_location"], func["def_lines"]))
+    over_lines_dict = {"over_lines_file": over_lines_file,
+                       "over_lines_class": over_lines_class,
+                       "over_lines_func": over_lines_func,
+                       }
+    number_dict = {"file_number": file_number,
+                   "class_number": class_number,
+                   "func_number": func_number,
+                   }
+    return over_lines_dict, number_dict
+
+
+def M_code_str(filter_list, code):
+    """
+    将超行信息转换为超行信息字符串，且格式化处理
+    :param filter_list: 超行信息列表
+    :param code: 对应的超行代码编号
+    :return: 格式化处理后的超行信息字符串
+    """
+    m_string_list = list()
+    m_max_dict = {
+        "M101": MAX_FUNCTION_LINES,
+        "M102": MAX_CLASS_LINES,
+        "M103": MAX_MODULE_LINES
+    }
+    for element in filter_list:
+        file_abspath, location, lines = element
+        m_string = f"{file_abspath}:{location}:1: {code} line too much ({lines} > {m_max_dict[code]} rows)"
+        m_string_list.append(m_string)
+    return '\n'.join(m_string_list)
