@@ -269,7 +269,7 @@ def disposal_data(data, ignore_func):
     return m_string + total_info
 
 
-def count(data, _count_type, line_number=1):
+def _count(data, _count_type, line_number=1):
     """
     统计类的代码行数
     :param data: 打开读取到的文件数据
@@ -277,4 +277,34 @@ def count(data, _count_type, line_number=1):
     :param line_number: 起始行行号
     :return: 文件的类或者方法行数统计列表,文件总行数
     """
-    pass
+    total_list = list()
+    main_name = "__name__"
+    count_type = _count_type
+    for line in data.splitlines():
+        count_dict = dict()
+        pattern = r"^(?:\s?){4}%s (\w+)\(?.*" % count_type
+        class_names = re.findall(pattern, line)
+        # 通过正则来判断类的头行以及获取类名
+        if class_names:
+            count_dict[f"{count_type}_name"] = class_names[0]
+            count_dict[f"{count_type}_location"] = line_number
+            total_list.append(count_dict)
+        elif f'if {main_name} == ' in line:
+            count_dict[f"{count_type}_name"] = main_name
+            count_dict[f"{count_type}_location"] = line_number
+            total_list.append(count_dict)
+        line_number += 1
+    if len(total_list) > 1:
+        for class_index in range(len(total_list) - 1):
+            # 将下一个类的头行所在位置-1，当作最后一行
+            total_list[class_index][f"{count_type}_end"] = total_list[class_index + 1][f"{count_type}_location"] - 1
+            total_list[class_index][f"{count_type}_lines"] = \
+                total_list[class_index][f"{count_type}_end"] - total_list[class_index][f"{count_type}_location"]
+    if total_list:
+        # 排除调试部分内容的影响
+        if total_list[-1][f"{count_type}_name"] == main_name:
+            total_list.pop(-1)
+        else:
+            total_list[-1][f"{count_type}_end"] = line_number
+            total_list[-1][f"{count_type}_lines"] = line_number - total_list[-1][f"{count_type}_location"]
+    return total_list, line_number

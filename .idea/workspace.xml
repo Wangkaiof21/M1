@@ -54,8 +54,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lib/CommonLib/code_inspection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="821">
-              <caret line="254" column="35" selection-start-line="254" selection-start-column="35" selection-end-line="254" selection-end-column="35" />
+            <state relative-caret-position="990">
+              <caret line="291" column="18" selection-start-line="291" selection-start-column="18" selection-end-line="291" selection-end-column="18" />
               <folding>
                 <element signature="e#179#192#0" expanded="true" />
               </folding>
@@ -135,9 +135,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
-    <option name="width" value="1871" />
-    <option name="height" value="2171" />
+    <option name="x" value="-12" />
+    <option name="width" value="1872" />
+    <option name="height" value="2172" />
   </component>
   <component name="ProjectId" id="29pYKbkEpVQzYk17YHujBOQWOCm" />
   <component name="ProjectLevelVcsManager">
@@ -340,7 +340,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1247" height="1447" extended-state="0" />
+    <frame x="-8" y="0" width="1248" height="1448" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.29066887" />
@@ -354,7 +354,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.1513308" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.1512158" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32879817" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -751,8 +751,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/code_inspection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="254" column="35" selection-start-line="254" selection-start-column="35" selection-end-line="254" selection-end-column="35" />
+        <state relative-caret-position="990">
+          <caret line="291" column="18" selection-start-line="291" selection-start-column="18" selection-end-line="291" selection-end-column="18" />
           <folding>
             <element signature="e#179#192#0" expanded="true" />
           </folding>
