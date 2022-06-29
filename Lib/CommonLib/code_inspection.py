@@ -320,7 +320,7 @@ def count_lines(data):
     class_list, file_lines = _count(data, "class")
     if class_list:
         for class_ in class_list:
-            class_dcit = dict()
+            class_dict = dict()
             start, end = class_["class_location"], class_["class_end"]
             # 通过类的起始位置 即可直接于文件中进行切片，将类的代码块划分出来
             func_list, _ = _count("\n".join(data.splitlines()[start - 1:end - 1]), "def", line_number=start)
@@ -328,4 +328,26 @@ def count_lines(data):
             code_dict["class_value"] = func_list
             code_dict["class_location"] = start
             code_dict["class_lines"] = end - start
-            func_total_list.append(class_dcit)
+            func_total_list.append(class_dict)
+    else:
+        # 纯函数 无定义类的情况下
+        class_dict = dict()
+        func_list, file_lines = _count(data, "def")
+        code_dict["class_name"] = "None"
+        code_dict["class_value"] = func_list
+        code_dict["class_location"] = 0
+        code_dict["class_lines"] = 0
+        func_total_list.append(class_dict)
+    return func_total_list, file_lines
+
+
+def run_count_lines(path, count_code_data=None, ignore_file=None):
+    """
+    执行函数或者方法行数统计 调用入口
+    :param path: 文件路径
+    :param count_code_data:函数代码行数统计结果
+    :param ignore_file: 忽略文件
+    :return: 函数代码行数统计结果
+    """
+    if count_code_data is None:
+        count_code_data = list()
