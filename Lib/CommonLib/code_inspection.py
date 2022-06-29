@@ -308,3 +308,24 @@ def _count(data, _count_type, line_number=1):
             total_list[-1][f"{count_type}_end"] = line_number
             total_list[-1][f"{count_type}_lines"] = line_number - total_list[-1][f"{count_type}_location"]
     return total_list, line_number
+
+
+def count_lines(data):
+    """
+    统计函数或方法的代码行数
+    :param data:
+    :return: 文件的类或者方法行数统计列表,文件总行数
+    """
+    func_total_list = list()
+    class_list, file_lines = _count(data, "class")
+    if class_list:
+        for class_ in class_list:
+            class_dcit = dict()
+            start, end = class_["class_location"], class_["class_end"]
+            # 通过类的起始位置 即可直接于文件中进行切片，将类的代码块划分出来
+            func_list, _ = _count("\n".join(data.splitlines()[start - 1:end - 1]), "def", line_number=start)
+            code_dict["class_name"] = code_dict["class_name"]
+            code_dict["class_value"] = func_list
+            code_dict["class_location"] = start
+            code_dict["class_lines"] = end - start
+            func_total_list.append(class_dcit)
