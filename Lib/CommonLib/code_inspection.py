@@ -343,7 +343,7 @@ def count_lines(data):
 
 def run_count_lines(path, count_code_data=None, ignore_file=None):
     """
-    执行函数或者方法行数统计 调用入口
+    执行函数或者方法行数统计 调用入口 菠萝
     :param path: 文件路径
     :param count_code_data:函数代码行数统计结果
     :param ignore_file: 忽略文件
@@ -351,3 +351,8 @@ def run_count_lines(path, count_code_data=None, ignore_file=None):
     """
     if count_code_data is None:
         count_code_data = list()
+    # 判断是否添加忽略文件
+    if ignore_file:
+        add_ignore_file(ignore_file)
+    if os.path.exists(path):
+        # 判断是否
