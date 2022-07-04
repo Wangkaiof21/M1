@@ -355,4 +355,26 @@ def run_count_lines(path, count_code_data=None, ignore_file=None):
     if ignore_file:
         add_ignore_file(ignore_file)
     if os.path.exists(path):
-        # 判断是否
+        # 判断是否是单一的py文件 以及是否在忽略文件中
+        if (os.path.isfile(path)) & (path.endswith(".py")) & (os.path.basename(path) not in ignore_file_list):
+            full_file = os.path.abspath(path)
+            data = get_data(full_file)
+            if data:
+                count_code_dict = dict()
+                func_data, file_lines = count_lines(data)
+                count_code_dict["file_name"] = full_file
+                count_code_dict["file_value"] = func_data
+                count_code_dict["file_location"] = file_lines
+                count_code_data.append(count_code_dict)
+        elif os.path.isdir(path):
+            for root, folder, files in os.walk(os.path.abspath(path)):
+                for file in files:
+                    # 回调函数统计方法
+                    run_count_lines(os.path.join(root, file), count_code_data)
+    else:
+        print("The path is wrong , please check and try again !")
+    return count_code_data
+
+if __name__ == '__main__':
+    """
+    """
