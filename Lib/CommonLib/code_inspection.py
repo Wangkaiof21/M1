@@ -375,7 +375,9 @@ def run_count_lines(path, count_code_data=None, ignore_file=None):
         print("The path is wrong , please check and try again !")
     return count_code_data
 
+
 if __name__ == '__main__':
+    #  缺少code_dict = {} desc_dict = {}ignore_file_list = [] 参数
     """
     1.使用该代码规范检查工具 请放置于项目目录下
     2.实用功能inspection进行代码规范检查前 需先执行environment 和 modify_length
@@ -390,4 +392,19 @@ if __name__ == '__main__':
     F:致命错误 阻止pylint进一步运行的错误
     
     """
-    ################################使用本机
+    #  ###############################使用本机第一次执行该工具###############################
+    #  environment() # 检查并安装代码检查工具
+    #  ###############################代码检查###############################
+    #  默认对项目所有py文件进行代码规范检查
+    #  inspection()
+    #  传入指定路径 对指定文件进行代码检查
+    project_path = os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd())))
+    code_address = os.path.join(project_path, "TestScript", "MPAM")
+    print(code_address)
+    inspection(code_path=code_address)
+    # 忽略指定错误返回码
+    inspection(code_path=code_address, ignore='E402')
+    inspection(code_path=code_address, ignore=['E402', 'W504'])
+    # 忽略指定方法的超行警告
+    inspection(code_path=code_address, ignore='E402', ignore_func="procedure")
+    inspection(code_path=code_address, ignore=['E402', 'W504'], ignore_func="procedure")
