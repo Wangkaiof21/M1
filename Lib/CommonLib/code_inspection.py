@@ -145,7 +145,7 @@ def cmd_order(code_path, source, ignore):
     return cmd
 
 
-def inspection(code_path=None, source=False, ignore=None, ignore_func=None)
+def inspection(code_path=None, source=False, ignore=None, ignore_func=None):
     """
     文件代码检查
     :param code_path: 检查的文件或者文件夹路径
@@ -377,4 +377,17 @@ def run_count_lines(path, count_code_data=None, ignore_file=None):
 
 if __name__ == '__main__':
     """
+    1.使用该代码规范检查工具 请放置于项目目录下
+    2.实用功能inspection进行代码规范检查前 需先执行environment 和 modify_length
+    两个方法，执行完后 注释掉
+    3.环境检查(environment,modify_length)后，方法调用inspection进行代码规范检查
+    注:inspection不传指定文件路径的情况下默认检查整个项目的.py文件
+    错误代码的含义:
+    C:管理 违反了pe8编码风格
+    R:重构 代码非常糟糕
+    W:警告 某些python特定问题
+    E:错误 很可能是代码错误
+    F:致命错误 阻止pylint进一步运行的错误
+    
     """
+    ################################使用本机
