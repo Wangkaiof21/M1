@@ -28,7 +28,13 @@ class CmdSystemctl:
         res4chk = int(self.terminal.cmd_send(cmd=cmd_check)['rettxt'])
         return res4chk == value
 
+    def huge_page_set(self, page_size=16384):
+        res4chk = int(self.terminal.cmd_send(cmd='cat /proc/meminfo/grep HugePages_Total|awk -F: \'{print $2}\'')[
+                          'rettxt'].strip())
 
-if __name__ == '__main__':
-    test = CmdSystemctl(Terminal)
-    test.randomize_va_space_set(value=2)
+        if res4chk == page_size:
+            return True
+
+# if __name__ == '__main__':
+#     test = CmdSystemctl(Terminal)
+#     test.randomize_va_space_set(value=2)
