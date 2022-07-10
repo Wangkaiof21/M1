@@ -34,6 +34,10 @@ class CmdSystemctl:
 
         if res4chk == page_size:
             return True
+        # terminal参数应该设置为hold=True
+        # 与CmdSysInfo.huge_page_set区别
+        cmd_set = f'echo {self.terminal.term.password}|sudo -S sysctl -w vm.nr_hugepages={page_size}'
+        self.terminal.cmd_send(cmd=cmd_set)
 
 # if __name__ == '__main__':
 #     test = CmdSystemctl(Terminal)
