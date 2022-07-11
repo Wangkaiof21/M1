@@ -38,6 +38,12 @@ class CmdSystemctl:
         # 与CmdSysInfo.huge_page_set区别
         cmd_set = f'echo {self.terminal.term.password}|sudo -S sysctl -w vm.nr_hugepages={page_size}'
         self.terminal.cmd_send(cmd=cmd_set)
+        # TODO：是否需要配置命令生效
+        cmd_enable = f'echo {self.terminal.term.password}|sudo -S sysctl -p'
+        self.terminal.cmd_send(cmd=cmd_enable)
+        res4chk = int(self.terminal.cmd_send(cmd='cat /proc/meminfo/grep HugePages_Total|awk -F: \'{print $2}\'')[
+                          'rettxt'].strip())
+        return res4chk == page_size
 
 # if __name__ == '__main__':
 #     test = CmdSystemctl(Terminal)

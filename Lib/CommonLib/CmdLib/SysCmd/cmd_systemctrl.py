@@ -6,8 +6,8 @@
 # @Software: win10 Tensorflow1.13.1 python3.6.3
 
 import os
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_INFO, LOG_ERROR
-from Lib.ComminLib.BaseLib.terminal import Terminal
+from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR, LOG_INFO
+from Lib.CommonLib.BaseLib.terminal import Terminal
 
 
 class CmdSysCtrl:
