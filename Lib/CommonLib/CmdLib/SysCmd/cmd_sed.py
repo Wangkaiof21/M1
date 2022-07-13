@@ -28,3 +28,16 @@ def safe_mode(flag):
         return inner
 
     return decorate
+
+
+@safe_mode
+def cmd_add(index, content, file):
+    """
+    指定位置后追加content
+    :param index:指定行号:为'$'时，表示最后一行追加.为'n,m'时，表示在n-m行的每一行后面追加
+    :param content:追加内容
+    :param file:操作文件
+    :return:
+    """
+    return r'sed {}a {} {} -i'.format(index, content, file)
+
