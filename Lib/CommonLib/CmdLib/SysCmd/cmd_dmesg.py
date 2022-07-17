@@ -47,18 +47,18 @@ class CmdDmesg:
         option = "-T |grep -E 'eth|enp'"
         first_data = self.get(option, timeout=timeout)
         out_data = ""
-        if ("fail" or "err" or "warn" or "unsupport")in first_data:
-            LogMessage(level=LOG_ERROR, module="nic_exception_msg_get",msg=">>> EXCEPTION MESSAGE:")
+        if ("fail" or "err" or "warn" or "unsupport") in first_data:
+            LogMessage(level=LOG_ERROR, module="nic_exception_msg_get", msg=">>> EXCEPTION MESSAGE:")
             option += "| grep -iE 'fail|err|warn|unsupport'"
             judged_flag = True
             out_data = self.get(option, timeout=timeout)
-            return judged_flag,out_data
+            return judged_flag, out_data
         else:
             LogMessage(level=LOG_ERROR, module="nic_exception_msg_get", msg=">>> NO EXCEPTION MESSAGE!")
-            return judged_flag,out_data
+            return judged_flag, out_data
 
     @func_name_wrapper
-    def devices_exception_check(self,devices):
+    def devices_exception_check(self, devices):
         """
         设备异常故障检查
         :param devices:
