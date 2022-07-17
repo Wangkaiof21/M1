@@ -4,8 +4,9 @@
 # @Author  : v_bkaiwang
 # @File    : cmd_disk.py
 # @Software: win10 Tensorflow1.13.1 python3.6.3
-from Lib.ComminLib.BaseLib.log_message import LogMessage, LOG_ERROR
-from Lib.ComminLib.BaseLib.terminal import Terminal
+from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR
+from Lib.CommonLib.BaseLib.terminal import Terminal
+
 
 
 class CmdDisk:
