@@ -58,9 +58,36 @@ class CmdDmesg:
             return judged_flag, out_data
 
     @func_name_wrapper
-    def devices_exception_check(self, devices):
+    def devices_exception_check(self, device):
         """
         设备异常故障检查
-        :param devices:
+        :param device:
         :return:
         """
+        pass_wd = self.terminal.term.password
+        # TODO: error; unsupport->nosuppor
+        cmd = f'echo {pass_wd} |sudo -S dmesg |grep -E {device} |grep -iE \'fail|error|warn|unsupport\'|wc -l'
+        cmd_result = self.terminal.cmd_send(cmd=f'bash --login -c "{cmd}"')['rettxt']
+        cmd_result = int(cmd_result.split(':')[-1].strip())
+        return True if not cmd_result else False
+
+    def grep_get(self, option):
+        """
+
+        :param option:
+        :return:
+        """
+        new_option = " -T |grep -i" + option
+        ret_text = self.get(new_option)
+        grep_name = option
+        grep_data = []
+        for temp_data in ret_text.splitline():
+            if grep_name in temp_data:
+                grep_data.append(temp_data)
+                grep_data.append("\n")
+        return "".join(grep_data)
+
+    def usb(self):
+        option = "usb"
+        return self.grep_get(option)
+
