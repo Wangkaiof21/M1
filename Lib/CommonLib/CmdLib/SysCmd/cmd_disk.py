@@ -8,7 +8,6 @@ from Lib.CommonLib.BaseLib.log_message import LogMessage, LOG_ERROR
 from Lib.CommonLib.BaseLib.terminal import Terminal
 
 
-
 class CmdDisk:
     def __init__(self, terminal=None):
         self.terminal = terminal if isinstance(terminal, Terminal) else LogMessage(level=LOG_ERROR, module='CmdDisk')
