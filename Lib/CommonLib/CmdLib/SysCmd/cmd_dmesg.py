@@ -87,7 +87,47 @@ class CmdDmesg:
                 grep_data.append("\n")
         return "".join(grep_data)
 
+    #  USB信息
     def usb(self):
         option = "usb"
         return self.grep_get(option)
 
+    #  dma信息
+    def dma(self):
+        option = "dma"
+        return self.grep_get(option)
+
+    #  内存信息
+    def memory(self):
+        option = "memory"
+        return self.grep_get(option)
+
+    #  sata盤信息
+    def sata(self):
+        option = "sd"
+        return self.grep_get(option)
+
+    #  串行接口信息
+    def tty(self):
+        option = "tty"
+        return self.grep_get(option)
+
+    # cpu信息
+    def cpu(self):
+        option = "cpu"
+        return self.grep_get(option)
+
+    # 内核中link信息
+    def link(self):
+        option = "link"
+        return self.grep_get(option)
+
+    # 内核中網卡相關信息信息
+    def eth(self):
+        option = "eth"
+        return self.grep_get(option)
+
+    # 清空dmesg緩衝區日志信息，閲讀並清空所有信息
+    def read_clean(self):
+        option = "-c"
+        return self.grep_get(option)
