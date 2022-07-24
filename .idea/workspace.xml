@@ -7,7 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d4fc2b31-067c-4275-8050-d882533bc142" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_dmesg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_dmesg.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,8 +87,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_dmesg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="190" column="20" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
+            <state relative-caret-position="836">
+              <caret line="212" column="25" selection-start-line="212" selection-start-column="25" selection-end-line="212" selection-end-column="25" />
               <folding>
                 <element signature="e#172#239#0" expanded="true" />
               </folding>
@@ -408,7 +407,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1247" height="1447" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.29066887" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -830,8 +828,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lib/CommonLib/CmdLib/SysCmd/cmd_dmesg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="190" column="20" selection-start-line="190" selection-start-column="20" selection-end-line="190" selection-end-column="20" />
+        <state relative-caret-position="836">
+          <caret line="212" column="25" selection-start-line="212" selection-start-column="25" selection-end-line="212" selection-end-column="25" />
           <folding>
             <element signature="e#172#239#0" expanded="true" />
           </folding>
